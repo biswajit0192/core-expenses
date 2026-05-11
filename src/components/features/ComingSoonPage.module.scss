@@ -1,0 +1,139 @@
+@use '@/styles/mixins' as *;
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--colors-surface-base);
+  padding: var(--spacing-xl);
+  color: var(--colors-base-font-color);
+}
+
+.glow1, .glow2 {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  filter: blur(80px);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.glow1 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--colors-surface-glow-pt1);
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: var(--spacing-l);
+}
+
+.logo {
+  height: 32px;
+}
+
+.main {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.content {
+  width: 100%;
+  min-height: 70vh;
+  @include item-xy-center-reverse;
+  padding: var(--spacing-s);
+  gap: var(--section-spacing);
+}
+
+.title {
+  font-size: 52px;
+  line-height: 70px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  margin: 0;
+  text-align: center;
+  text-transform: capitalize;
+
+  span{
+    font-size: 70px;
+  }
+}
+
+.highlight {
+  color: var(--colors-primary);
+}
+
+.subtitle {
+  font-size: 18px;
+  color: var(--colors-gray-font-color);
+  line-height: 1.5;
+  margin: 0;
+  text-align: center;
+}
+
+.progressSection {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-m);
+  margin-top: var(--spacing-l);
+}
+
+.progressBar {
+  width: 100%;
+  height: 6px;
+  background-color: var(--colors-cards-stroke-color);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--colors-prime-btn-pt1) 0%, var(--colors-primary) 100%);
+  border-radius: 4px;
+}
+
+.progressText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.percentNumber {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--colors-base-font-color);
+}
+
+.percentLabel {
+  font-size: var(--font-size-xs);
+  color: var(--colors-gray-font-color);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+}
+
+.footer {
+  font-size: var(--font-size-xs);
+  color: var(--colors-gray-font-color);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+  padding-bottom: var(--spacing-l);
+}

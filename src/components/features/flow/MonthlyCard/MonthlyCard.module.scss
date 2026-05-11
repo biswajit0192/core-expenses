@@ -1,0 +1,119 @@
+@use '@/styles/mixins' as *;
+
+.card {
+  @include mono-cards-designs;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-m);
+  margin-bottom: var(--spacing-s);
+  padding: 1.25rem;
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.providerInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.iconWrapper {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--color-transaction-icon-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--colors-primary-icons);
+}
+
+.providerName {
+  font-size: var(--font-size-m);
+  font-weight: 600;
+  color: var(--colors-base-font-color);
+  margin: 0;
+}
+
+.amountArea {
+  text-align: right;
+}
+
+.amount {
+  font-size: var(--font-size-l);
+  font-weight: 700;
+  // color: var(--colors-accent-text);
+  letter-spacing: -0.02em;
+}
+
+.cycle {
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  color: var(--colors-gray-font-color);
+  margin-left: 4px;
+}
+
+.bottomRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.nextBill {
+
+  .nextBillLabel{
+    @include timelineLabel;
+  }
+  .nextBillDate{
+    @include timelineDate;
+    margin-left: 4px;
+  }
+}
+
+.daysLeft {
+  @include chip-design-mono;
+  @include timelineDate;
+  padding: 4px 10px;
+  border-radius: 6px;
+
+  &.urgent {
+    background: var(--colors-urgent-background);
+    color: var(--colors-urgent-text);
+    animation: pulse 2s infinite;
+  }
+
+  &.imminent {
+    color: var(--colors-urgent-text);
+    background: var(--colors-urgent-background);
+  }
+
+  &.paid {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--colors-secondary-chip-txt);
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.98); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.actionRow {
+  margin-top: 12px;
+  display: flex;
+}
+
+.markPaidBtn {
+  @include gradient-btn-secondary;
+  width: 100%;
+  padding: 10px;
+  font-size: var(--font-size-s);
+  border-radius: 8px;
+}

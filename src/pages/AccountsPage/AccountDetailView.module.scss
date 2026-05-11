@@ -1,0 +1,302 @@
+@use '@/styles/mixins' as *;
+
+.container {
+  padding: var(--spacing-m);
+  animation: fadeIn 0.4s ease-out;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-m);
+  margin-bottom: var(--spacing-xxl);
+  
+  .backBtn {
+    background: var(--color-glass-bg);
+    border: 1px solid var(--colors-strong-stroke-color);
+    color: var(--colors-base-font-color);
+    padding: 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  .title {
+    font-size: 20px;
+    font-family: var(--font-heading-family);
+    color: var(--colors-base-font-color);
+    margin: 0;
+    text-transform: capitalize;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--colors-gray-font-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .input {
+    background: var(--color-glass-bg);
+    border: 1px solid var(--colors-strong-stroke-color);
+    color: var(--colors-base-font-color);
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-family: var(--font-body-family);
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      border-color: var(--colors-primary);
+    }
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+.segmentedControl {
+  display: flex;
+  background: var(--color-glass-bg);
+  border: 1px solid var(--colors-strong-stroke-color);
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.segmentBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--colors-gray-font-color);
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &.active {
+    background: var(--colors-mode-btn-active);
+    color: var(--colors-base-font-color);
+  }
+}
+
+.goalsBox {
+  background: rgba(0, 178, 123, 0.05);
+  border: 1px solid rgba(0, 178, 123, 0.2);
+  border-radius: 16px;
+  padding: var(--spacing-m);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-m);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.goalsTitle {
+  font-size: 16px;
+  color: var(--colors-secondary);
+  margin: 0;
+  font-weight: 600;
+}
+
+.goalsDesc {
+  font-size: 12px;
+  color: var(--colors-gray-font-color);
+  margin: 4px 0 0;
+}
+
+.datePickerWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.dateIcon {
+  position: absolute;
+  left: 16px;
+  color: var(--colors-gray-font-color);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.dateInput {
+  background: var(--color-glass-bg);
+  border: 1px solid var(--colors-strong-stroke-color);
+  color: var(--colors-base-font-color);
+  padding: 14px 16px 14px 44px; /* extra padding left for icon */
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: var(--font-body-family);
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: var(--colors-primary);
+  }
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+:global(.react-datepicker__close-icon) {
+  right: 8px;
+}
+
+.toggleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-glass-bg);
+  padding: var(--spacing-m);
+  border: 1px solid var(--colors-strong-stroke-color);
+  border-radius: 16px;
+
+  .toggleInfo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-m);
+
+    .icon {
+      color: var(--colors-primary-icons);
+    }
+
+    .toggleLabel {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--colors-base-font-color);
+      display: block;
+    }
+
+    .toggleDesc {
+      font-size: 11px;
+      color: var(--colors-gray-font-color);
+      margin: 2px 0 0;
+    }
+  }
+}
+
+/* Custom Switch Toggle */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+
+  input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: .4s;
+    border-radius: 34px;
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: var(--colors-base-font-color);
+      transition: .4s;
+      border-radius: 50%;
+    }
+  }
+
+  input:checked + .slider {
+    background-color: var(--colors-secondary);
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(20px);
+  }
+}
+
+.actions {
+  margin-top: var(--spacing-xxl);
+  
+  .saveBtn {
+    width: 100%;
+    cursor: pointer;
+    @include gradient-btn-primary;
+    margin-bottom: var(--spacing-m); // space above delete if present
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .deleteBtn {
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px;
+    border-radius: 12px;
+    background: rgba(255, 59, 48, 0.05);
+    color: #ff453a; // iOS destruct red
+    border: 1px solid rgba(255, 59, 48, 0.15);
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 59, 48, 0.1);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: 100px 0;
+  color: var(--colors-gray-font-color);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

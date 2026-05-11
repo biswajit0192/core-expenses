@@ -1,0 +1,105 @@
+@use '@/styles/mixins' as *;
+
+.expandableWrapper {
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border-radius: var(--border-radius-m);
+
+  .item {
+    transition: padding 0.3s ease;
+    border-radius: var(--border-radius-m);
+  }
+  
+  &.isOpen {
+    background: var(--color-card-item-bg);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+    .item {
+      padding: var(--spacing-s);
+    }
+  }
+}
+
+.actionBar {
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.actionContent {
+  display: flex;
+  padding: var(--spacing-s);
+  gap: var(--spacing-s);
+}
+
+.editBtn, .deleteBtn {
+  flex: 1;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.editBtn {
+  background: var(--colors-gray-btn);
+  color: var(--colors-base-font-color);
+  
+  &:hover { background: rgba(255, 255, 255, 0.1); }
+}
+
+.deleteBtn {
+  background: rgba(255, 77, 77, 0.08);
+  color: #ff4d4d;
+  
+  &:hover { background: rgba(255, 77, 77, 0.15); }
+}
+
+.confirmWrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--spacing-xs);
+}
+
+.confirmLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ff4d4d;
+}
+
+.confirmActions {
+  display: flex;
+  gap: var(--spacing-s);
+}
+
+.cancelBtn, .confirmBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelBtn {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--colors-gray-font-color);
+}
+
+.confirmBtn {
+  background: #ff4d4d;
+  color: white;
+}

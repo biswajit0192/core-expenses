@@ -1,0 +1,46 @@
+@use '@/styles/mixins' as *;
+
+.glow1, .glow2 {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  filter: blur(80px);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.glow1 {
+  top: -17%;
+  left: 100%;
+  transform: translateX(-50%);
+  background: var(--colors-surface-glow-pt1);
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.header {
+  width: 100%;
+  @include flex-center;
+  padding: var(--spacing-l) 0;
+}
+
+.logo {
+  height: 32px;
+}
+
+.content {
+  width: 100%;
+  min-height: 70vh;
+  @include item-xy-center;
+  padding: var(--spacing-s);
+}

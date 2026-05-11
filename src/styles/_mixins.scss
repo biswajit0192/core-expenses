@@ -1,0 +1,338 @@
+// Reusable snippets
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin glassmorphism {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+@mixin safe-area-padding {
+  padding-top: calc(var(--spacing-m) + env(safe-area-inset-top, 16px));
+  padding-bottom: calc(var(--spacing-m) + env(safe-area-inset-bottom, 16px));
+}
+
+@mixin item-xy-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin item-xy-center-reverse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+@mixin item-y-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin item-x-center {
+  display: flex;
+  justify-content: center;
+}
+
+@mixin gradient-text {
+  background: linear-gradient(45deg, var(--colors-primary) 0%, var(--colors-primary-icons) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin gradient-btn-primary {
+  padding: var(--spacing-m);
+  border-radius: var(--border-radius-m);
+  border: none;
+  background: linear-gradient(135deg, var(--colors-prime-btn-pt1) 0%, var(--colors-prime-btn-pt2) 100%);
+  color: var(--colors-base-font-color);
+  font-size: var(--font-body-family);
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+@mixin hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+}
+
+@mixin gradient-btn-secondary {
+  padding: var(--spacing-m);
+  border-radius: var(--border-radius-m);
+  border: none;
+  background: linear-gradient(135deg, var(--colors-secondary-btn-pt1) 0%, var(--colors-secondary-btn-pt2) 100%);
+  color: var(--colors-base-font-color);
+  font-size: var(--font-body-family);
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+@mixin transaction-item-design {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin transaction-item-bg {
+  padding: var(--spacing-s);
+  background-color: var(--color-transaction-item-bg);
+  border-radius: var(--border-radius-m);
+}
+
+@mixin recurring-bill-items {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  transition: max-height 0.3s ease, margin 0.3s ease, opacity 0.3s ease;
+  max-height: 120px;
+  margin-bottom: var(--spacing-none);
+  touch-action: pan-y;
+  user-select: none;
+
+  &.exiting {
+    max-height: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@mixin nexus-icon {
+  background: linear-gradient(135deg, var(--colors-prime-btn-pt1) 0%, var(--colors-prime-btn-pt2) 100%);
+  border-radius: var(--border-radius-round);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+
+  svg{
+    width: 50%;
+    height: 50%;
+  }
+}
+
+@mixin nexus-add-icon{
+  @include nexus-icon;
+  width: 40px;
+  height: 40px;
+
+  svg{
+    width: 70%;
+    height: 70%;
+  }
+}
+
+@mixin nexus-input-field {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s);
+  background: hsla(240, 11%, 12%, 0.7);
+  backdrop-filter: blur(0px);
+  border-radius: var(--border-radius-round);
+  padding: 8px 8px 8px 20px;
+  border: 1px solid var(--colors-cards-stroke-color);
+  box-shadow: 0 0px 9px 0px rgb(190 202 255 / 20%);
+  transition: border-color 0.2s ease;
+
+  &.shake {
+    animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    border-color: rgba(255, 77, 77, 0.5);
+  }
+}
+
+@mixin mono-cards-designs {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-m);
+  // background-image: linear-gradient(135deg, var(--color-card-mono-pt1), var(--color-card-mono-pt2));
+  background: var(--color-card-solid-bg);
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  // border: 1px solid var(--colors-cards-stroke-color);
+}
+
+@mixin section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  margin-bottom: var(--spacing-s);
+
+  .widgetTitle {
+    font-size: var(--font-size-l);
+    font-weight: 500;
+    color: var(--colors-base-font-color);
+    text-transform: capitalize;
+    letter-spacing: 0.05em;
+  }
+
+  .widgetIcon {
+    color: var(--colors-base-font-color);
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@mixin chip-design-mono {
+  border-radius: var(--border-radius-s);
+  color: var(--colors-gray-font-color);
+  background: var(--colors-mono-chip-bg);
+  border: 1px solid var(--colors-mono-chip-border);
+}
+@mixin chip-design-primary {
+  border-radius: var(--border-radius-s);
+  color: var(--colors-primary-chip-txt);
+  background: var(--colors-primary-chip-bg);
+  border: 1px solid var(--colors-primary-chip-border);
+}
+@mixin chip-design-secondary {
+  border-radius: var(--border-radius-s);
+  color: var(--colors-secondary-chip-txt);
+  background: var(--colors-secondary-chip-bg);
+  border: 1px solid var(--colors-secondary-chip-border);
+}
+@mixin chip-design-tertiary {
+  border-radius: var(--border-radius-s);
+  color: var(--colors-tertiary-chip-txt);
+  background: var(--colors-tertiary-chip-bg);
+  border: 1px solid var(--colors-tertiary-chip-border);
+}
+
+@mixin timelineLabel {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  opacity: 0.7;
+  color: var(--colors-gray-font-color);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@mixin timelineDate {
+  font-size: var(--font-size-s);
+  font-weight: 600;
+  color: var(--colors-base-font-color);
+}
+
+@mixin progressWrapper {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 999px;
+  width: 100%;
+  overflow: hidden;
+}
+
+@mixin progressSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+@mixin progressLabels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+@mixin progressFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--colors-secondary-btn-pt2), var(--colors-secondary-btn-pt1));
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
+@mixin add-button {
+  font-size: var(--font-size-s);
+  font-weight: 500;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--colors-prime-btn-pt1) 0%, var(--colors-prime-btn-pt2) 100%);
+  color: var(--colors-base-font-color);
+  border-radius: var(--border-radius-round);
+  padding: var(--spacing-xs) var(--spacing-m);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  border: none;
+
+  img{
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@mixin accountsCardDesign{
+  flex: 0 0 230px;
+  height: 142px;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-m);
+  border-radius: var(--border-radius-m);
+  border: 1px solid var(--colors-cards-stroke-color);
+  backdrop-filter: blur(10px);
+  scroll-snap-align: start;
+  position: relative;
+  transition: transform 0.2s ease;
+  cursor: default;
+  overflow: hidden;
+
+  &::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('@/assets/patterns-white.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 112%;
+    height: 140%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(14deg);
+    opacity: 0.16;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .watermark {
+    position: absolute;
+    bottom: 0;
+    left: -8px;
+    font-family: var(--font-heading-family);
+    font-size: 95px;
+    font-weight: 600;
+    line-height: 1;
+    color: white;
+    opacity: 0.07;
+    white-space: nowrap;
+    pointer-events: none;
+    select-none: none;
+    z-index: 0;
+    letter-spacing: -0.05em;
+  }
+}

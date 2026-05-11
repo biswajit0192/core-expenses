@@ -1,0 +1,102 @@
+@use '@/styles/mixins' as *;
+
+.item {
+  @include transaction-item-design;
+  // padding: var(--spacing-xs) 0;
+  cursor: pointer;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.withBg {
+    @include transaction-item-bg;
+  }
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-m);
+}
+
+.iconWrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background-color: var(--color-transaction-icon-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--colors-gray-font-color);
+  transition: all 0.2s ease;
+
+  svg {
+    width: 24px;
+    height: 24px;
+    color: var(--colors-prime-text);
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: var(--font-size-m);
+  font-weight: 400;
+  margin-bottom: 2px;
+  color: var(--colors-base-font-color);
+}
+
+.date {
+  font-size: var(--font-size-s);
+  color: var(--colors-gray-font-color);
+}
+
+.rightSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.amount {
+  font-size: var(--font-size-m);
+  font-weight: 600;
+  margin-bottom: 2px;
+  color: var(--colors-base-font-color);
+  transition: color 0.2s ease;
+}
+
+.statusChip {
+  font-size: var(--font-size-s);
+  font-weight: 500;
+  padding: 2px 0;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  color: var(--colors-gray-font-color);
+  // background: var(--colors-tertiary-chip-bg);
+  transition: all 0.2s ease;
+}
+
+// Income styles
+.income {
+  .iconWrapper {
+    background-color: var(--color-transaction-received-icon-bg); // Subtle green glow
+    color: var(--colors-secondary-chip-bg);
+    
+    svg path {
+      stroke: var(--colors-secondary-chip-txt);
+    }
+  }
+
+  .amount {
+    color: var(--colors-secondary-chip-txt);
+  }
+
+  .statusChip {
+    color: var(--colors-secondary-chip-txt);
+    // background: var(--colors-secondary-chip-bg);
+  }
+}

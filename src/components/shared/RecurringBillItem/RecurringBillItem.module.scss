@@ -1,0 +1,106 @@
+@use '@/styles/mixins' as *;
+
+.swipeWrapper {
+  @include recurring-bill-items;  
+}
+
+.swipeBackground {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--colors-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--spacing-l);
+  color: var(--colors-base-font-color);
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: var(--border-radius-m);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.showDone {
+  .swipeBackground {
+    opacity: 1;
+  }
+}
+
+.item {
+  @include transaction-item-design;
+  @include transaction-item-bg;
+  transition: all 0.2s ease;
+  touch-action: pan-y;
+  user-select: none;
+  position: relative;
+  z-index: 2;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.isPaid {
+    .name, .amount {
+      color: var(--colors-base-font-color);
+      opacity: 1;
+    }
+    .dueDate {
+      color: var(--colors-secondary-chip-txt);
+      font-weight: 600;
+      opacity: 1;
+    }
+  }
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-none);
+}
+
+
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxs);
+}
+
+.name {
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  color: var(--colors-base-font-color);
+}
+
+.dueDate {
+  font-size: var(--font-size-s);
+  color: var(--colors-gray-font-color);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  opacity: 0.8;
+}
+
+.rightSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing-xxs);
+}
+
+.amount {
+  font-size: var(--font-size-m);
+  font-weight: 600;
+  color: var(--colors-base-font-color);
+}
+
+.progressText {
+  font-size: var(--font-size-s);
+  font-weight: 600;
+  color: var(--colors-secondary-chip-txt);
+  opacity: 1;
+}
+

@@ -1,0 +1,184 @@
+@use '@/styles/mixins' as *;
+
+.page {
+  padding: 0 var(--spacing-m);
+}
+
+.stickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--colors-surface-base);
+  padding: 0 0 var(--spacing-s);
+  margin-left: calc(-1 * var(--spacing-m));
+  margin-right: calc(-1 * var(--spacing-m));
+  width: calc(100% + var(--spacing-m) * 2);
+}
+
+.accountsHeaderArea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-m) var(--spacing-m) 0;
+
+  .sectionTitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--colors-gray-font-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .addAccountBtn {
+    @include add-button;
+    transition: all 0.2s ease;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+}
+
+.swiperSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xxs);
+  padding: 0 var(--spacing-xxs) 0;
+}
+
+.swiper {
+  display: flex;
+  overflow-x: scroll;
+  padding: var(--spacing-m) calc(50% - 115px) var(--spacing-xl); // 115px is half of 230px card width
+  gap: var(--spacing-m);
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  scroll-padding: 0 calc(50% - 115px);
+  @include hide-scrollbar;
+}
+
+.cardWrapper {
+  flex: 0 0 230px;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+  opacity: 0.6;
+  
+  &.active {
+    opacity: 1;
+    transform: scale(1.05);
+    z-index: 2;
+
+    // Theme-based glow effects
+    // &.blue { box-shadow: 0 32px 40px -50px var(--colors-primary); }
+    // &.green { box-shadow: 0 32px 40px -50px var(--colors-secondary); }
+    // &.red { box-shadow: 0 32px 40px -50px var(--colors-accent); }
+  }
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+  // margin-bottom: var(--spacing-xxl);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--colors-gray-font-color);
+  opacity: 0.3;
+  transition: all 0.3s ease;
+
+  &.active {
+    width: 20px;
+    border-radius: 3px;
+    background: var(--colors-primary);
+    opacity: 1;
+  }
+}
+
+.txSection {
+  padding-bottom: var(--spacing-xs);
+}
+
+.txHeaderArea {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0 var(--spacing-m);
+  margin-top: var(--spacing-s);
+  
+  .title {
+    font-size: var(--font-size-l);
+    color: var(--colors-base-font-color);
+    margin: 0;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.monthGroup {
+  margin-bottom: var(--spacing-l);
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.monthHeader {
+  position: sticky;
+  top: 398px; 
+  z-index: 5;
+  background-color: var(--colors-surface-base);
+  padding: 10px var(--spacing-m);
+  margin-left: calc(-1 * var(--spacing-m));
+  margin-right: calc(-1 * var(--spacing-m));
+  width: calc(100% + var(--spacing-m) * 2);
+  margin-bottom: var(--spacing-s);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--colors-gray-font-color);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.groupItems {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+  background-color: var(--color-card-solid-bg);
+  padding: var(--spacing-m);
+  border-radius: var(--border-radius-xl);
+}
+
+.loading, .empty {
+  text-align: center;
+  padding: 40px var(--spacing-xl);
+  color: var(--colors-gray-font-color);
+  font-size: 14px;
+  font-family: var(--font-body-family);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

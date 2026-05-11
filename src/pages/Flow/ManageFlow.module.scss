@@ -1,0 +1,279 @@
+@use '@/styles/mixins' as *;
+
+.container {
+  padding: var(--spacing-m);
+  animation: fadeIn 0.4s ease-out;
+  min-height: calc(100dvh - 150px);
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-m);
+  margin-bottom: var(--spacing-xxl);
+  
+  .backBtn {
+    background: var(--color-glass-bg);
+    border: 1px solid var(--colors-strong-stroke-color);
+    color: var(--colors-base-font-color);
+    padding: 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  .title {
+    font-size: 20px;
+    color: var(--colors-base-font-color);
+    margin: 0;
+    text-transform: capitalize;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  flex: 1;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--colors-gray-font-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .input {
+    background: var(--color-glass-bg);
+    border: 1px solid var(--colors-strong-stroke-color);
+    color: var(--colors-base-font-color);
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-family: var(--font-body-family);
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      border-color: var(--colors-primary);
+    }
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  .helpText {
+    font-size: 11px;
+    color: var(--colors-gray-font-color);
+    margin-top: 4px;
+    opacity: 0.6;
+    line-height: 1.4;
+  }
+}
+
+.segmentedControl {
+  display: flex;
+  background: var(--color-glass-bg);
+  border: 1px solid var(--colors-strong-stroke-color);
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.segmentBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--colors-gray-font-color);
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &.active {
+    background: var(--colors-mode-btn-active);
+    color: var(--colors-base-font-color);
+  }
+}
+
+.datePickerWrapper {
+  width: 100%;
+}
+
+.dateTrigger {
+  background: var(--color-glass-bg);
+  border: 1px solid var(--colors-strong-stroke-color);
+  color: var(--colors-base-font-color);
+  padding: 0 16px;
+  border-radius: 12px;
+  height: 54px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 16px;
+  font-family: var(--font-body-family);
+  text-align: left;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .dateIcon {
+    color: var(--colors-primary);
+    opacity: 0.8;
+  }
+
+  .dateText {
+    flex: 1;
+    color: var(--colors-base-font-color);
+    font-weight: 500;
+  }
+}
+
+.actions {
+  margin-top: auto;
+  padding-top: var(--spacing-xxl);
+  
+  .btnRow {
+    display: flex;
+    gap: var(--spacing-m);
+    width: 100%;
+
+    button {
+      flex: 1;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .saveBtn {
+    width: 100%;
+    cursor: pointer;
+    @include gradient-btn-primary;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .secondaryGradientBtn {
+    width: 100%;
+    cursor: pointer;
+    @include gradient-btn-secondary;
+    margin-top: var(--spacing-m);
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .deleteContainer {
+    padding-top: var(--spacing-m);
+    border-top: 1px solid var(--colors-cards-stroke-color);
+  }
+
+  .deleteBtn {
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px;
+    border-radius: 12px;
+    background: rgba(255, 59, 48, 0.05);
+    color: #ff453a;
+    border: 1px solid rgba(255, 59, 48, 0.15);
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 59, 48, 0.1);
+    }
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: 100px 0;
+  color: var(--colors-gray-font-color);
+}
+
+
+.flexRow {
+  display: flex;
+  gap: var(--spacing-m);
+  width: 100%;
+  align-items: flex-end;
+
+  .formGroup {
+    flex: 1;
+    margin-bottom: 0;
+  }
+}
+
+.subLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  .label {
+    margin-bottom: 0;
+  }
+}
+
+.interestTypeToggle {
+  display: flex;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 2px;
+  gap: 2px;
+
+  .toggleBtn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 9px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+
+    &.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--colors-base-font-color);
+    }
+  }
+}

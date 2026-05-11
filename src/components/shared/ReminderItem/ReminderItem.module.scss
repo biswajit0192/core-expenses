@@ -1,0 +1,174 @@
+@use '@/styles/mixins' as *;
+
+.swipeWrapper {
+  @include recurring-bill-items;  
+}
+
+.swipeBackground {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--colors-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--spacing-l);
+  color: var(--colors-base-font-color);
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: var(--border-radius-m);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.showDone {
+  .swipeBackground {
+    opacity: 1;
+  }
+}
+
+.reminderCard {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--colors-cards-stroke-color);
+  border-radius: 12px;
+  padding: var(--spacing-m) var(--spacing-m) var(--spacing-m) var(--spacing-xl);
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+  min-height: 80px;
+  touch-action: pan-y;
+  user-select: none;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.2s ease;
+
+  &.full {
+    &.blue {  background-image: linear-gradient(135deg, var(--color-card-dark-blue-pt1), var(--color-card-dark-blue-pt2)); }
+    &.green { background-image: linear-gradient(135deg, var(--color-card-dark-green-pt1), var(--color-card-dark-green-pt2)); }
+  }
+
+  &.simple {
+    background: var(--colors-surface-base);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  &.blue::before { background-color: var(--colors-primary); }
+  &.green::before { background-color: var(--colors-secondary); }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  height: 100%;
+}
+
+.title {
+  font-size: var(--font-size-m);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--colors-base-font-color);
+  margin: 0;
+  width: 100%;
+}
+
+.date {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--colors-gray-font-color);
+  opacity: 0.8;
+  display: block;
+  margin-top: var(--spacing-xs);
+
+  &.dateCompact {
+    opacity: 0.4;
+    font-size: 10px;
+    margin-top: var((--spacing-xs));
+  }
+}
+
+.linkContainer {
+  width: 100%;
+  max-width: 80%; // Prevent overlapping with icon/btn
+}
+
+.linkText {
+  color: var(--colors-primary);
+  font-weight: 500;
+  text-decoration: underline;
+  cursor: pointer;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  user-select: text; // Allow text selection if needed, though we have long-press
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &.copied {
+    color: var(--colors-secondary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+}
+
+.notificationIcon {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  color: var(--colors-base-font-color);
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.linkBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--colors-base-font-color);
+  backdrop-filter: blur(8px);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.02);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: scale(1.05);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}

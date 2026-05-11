@@ -1,0 +1,136 @@
+@use '@/styles/mixins' as *;
+
+.statusCard, .emptyCard {
+  background-color: var(--color-card-solid-bg);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-m);
+  margin: var(--spacing-s) var(--spacing-m) var(--spacing-m);
+  border: 1px solid var(--colors-cards-stroke-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-s);
+}
+
+.labelGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  
+  .icon {
+    display: flex;
+    color: var(--colors-gray-font-color);
+  }
+}
+
+.percentage {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--colors-base-font-color);
+  letter-spacing: -0.01em;
+}
+
+.daysLeft {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--colors-gray-font-color);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Progress Bar - Synchronized with TenureCard */
+.progressWrapper {
+  width: 100%;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: var(--spacing-s);
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 3px;
+  transition: background 0.3s ease;
+
+  &.themeNormal {
+    background: var(--colors-primary);
+  }
+  
+  &.themeWarning {
+    background: var(--accent-yellow);
+  }
+  
+  &.themeDanger {
+    background: var(--accent-red);
+  }
+  
+  &.themeSavings {
+    background: linear-gradient(90deg, var(--colors-secondary-btn-pt1), var(--colors-secondary-btn-pt2));
+  }
+}
+
+.bottomRow {
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.currentAmount {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--colors-base-font-color);
+}
+
+.limitAmount {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--colors-gray-font-color);
+}
+
+/* Empty State Card */
+.emptyCard {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-m);
+  cursor: pointer;
+  border: 1px dashed var(--colors-strong-stroke-color);
+  background: rgba(255, 255, 255, 0.02);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--colors-primary);
+  }
+}
+
+.emptyIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--colors-primary);
+}
+
+.emptyText {
+  h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--colors-base-font-color);
+    margin: 0;
+  }
+  
+  p {
+    font-size: 12px;
+    color: var(--colors-gray-font-color);
+    margin-top: 2px;
+  }
+}

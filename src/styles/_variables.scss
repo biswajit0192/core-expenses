@@ -1,0 +1,133 @@
+/* Core Variables & Tokens Mapping (Flattened) */
+@use 'primitives' as *;
+
+// Fonts
+$font-heading: 'Josefin Sans', sans-serif;
+$font-body: 'Inter', sans-serif;
+
+:root {  
+  // Colors
+  --colors-primary: #{$Color-Blue-65};
+  --colors-secondary: #{$Color-Green-40};
+  --colors-accent: #{$Color-Red-40};
+  --colors-accent-text: #{$Color-Red-60};
+  --colors-surface-base: #0B0B0F;
+  --colors-urgent-text: var(--colors-urgent-text);
+  --colors-urgent-background: var(--colors-urgent-background);
+
+  --colors-secondary-chip-txt: #{$Color-Green-60};
+  --colors-secondary-chip-bg: #00B27B1A;
+  --colors-secondary-chip-border: #4EDEA333;
+
+  --colors-primary-chip-txt: #{$Color-Blue-80};
+  --colors-primary-chip-bg: hsla(239, 84%, 25%, 10%);
+  --colors-primary-chip-border: hsla(239, 84%, 70%, 30%);
+  
+  --colors-tertiary-chip-txt: #{$Color-Red-60};
+  --colors-tertiary-chip-bg: hsla(359, 100%, 40%, 10%);
+  --colors-tertiary-chip-border: hsla(359, 100%, 60%, 30%);
+
+  --colors-mono-chip-txt: #{$Color-Mono-80};
+  --colors-mono-chip-bg: hsla(0, 0%, 55%, 10%);
+  --colors-mono-chip-border: hsla(0, 0%, 80%, 30%);
+
+  --colors-base-font-color: #{$Color-Mono-95};
+  --colors-gray-font-color: #{$Color-Mono-60};
+  --colors-mode-btn-active: #{$Color-Blue-80};
+
+  --colors-secondary-btn-pt1: #{$Color-Green-70};
+  --colors-secondary-btn-pt2: #{$Color-Green-35};
+  --colors-prime-btn-pt1: #{$Color-Blue-90};
+  --colors-prime-btn-pt2: #{$Color-Blue-60};
+  --colors-accent-btn-pt1: #{$Color-Red-90};
+  --colors-accent-btn-pt2: #{$Color-Red-60};
+
+  --colors-secondary-tag-bg: #00A57233;
+  --colors-primary-icons: #{$Color-Blue-80};
+  --colors-secondary-icons: #{$Color-Green-60};
+  --colors-accent-icons: #{$Color-Red-40};
+  --colors-primary-chip-bg: #0A0C761A;
+  --colors-accent-chip-bg: #CC00031A;
+  --colors-cards-stroke-color: #FFFFFF0F;
+  --colors-cards-stroke-primary: #{$Color-Blue-70};
+  --colors-light-icon: #{$Color-Blue-90};
+  --colors-prime-text: #{$Color-Blue-90};
+  --colors-money-spent: #{$Color-Red-50};
+  --colors-nav-active: #{$Color-Blue-70};
+  --colors-strong-stroke-color: #FFFFFF33;
+  --colors-surface-glow-pt1: hsla(238, 84%, 85%, 0.07);
+  --colors-surface-glow-pt2: hsla(238, 84%, 85%, 0.07);
+  --colors-gray-btn: #292934;
+  --colors-input-background: #{$Color-Mono-10};
+  
+  // Design System Accents
+  --accent-yellow: #facc15; // Standard yellow for warnings/progress
+  --accent-red: #{$Color-Red-50};
+  --success-green: #{$Color-Green-50};
+  --color-accounts-card-blue-pt1: #{$Color-Blue-10};
+  --color-accounts-card-blue-pt2: #{$Color-Blue-30};
+  --color-accounts-card-green-pt1: #{$Color-Green-10};
+  --color-accounts-card-green-pt2: #{$Color-Green-30};
+  --color-accounts-card-red-pt1: #{$Color-Red-10};
+  --color-accounts-card-red-pt2: #{$Color-Red-30};
+  --color-card-mono-pt1: #{$Color-Mono-5};
+  --color-card-mono-pt2: #{$Color-Mono-10};
+  --color-card-dark-blue-pt1: #{rgba($Color-Blue-25, 20%)};
+  --color-card-dark-blue-pt2: #{rgba($Color-Blue-65, 20%)};
+  --color-card-dark-green-pt1: #0F241E;
+  --color-card-dark-green-pt2: #226754;
+  --color-card-solid-bg: #111118;
+  --color-card-item-bg: #1A1A23;
+  --color-card-item-bg-second: hsl(240, 11%, 20%);
+  --color-bottom-nav-bg: #{rgba($Color-Blue-90, 18%)};
+  --color-transaction-item-bg: rgba(26, 26, 35, 0.7);
+  --color-transaction-icon-bg: #{rgba($Color-Mono-100, 5%)};
+  --color-transaction-received-icon-bg: #{rgba($Color-Green-80, 5%)};
+
+  // Spacing
+  --spacing-none: 0px;
+  --spacing-xxs: 4px;
+  --spacing-xs: 8px;
+  --spacing-s: 12px;
+  --spacing-m: 16px;
+  --spacing-l: 20px;
+  --spacing-xl: 24px;
+  --spacing-xxl: 32px;
+  --component-spacing: 16px;
+  --section-spacing: 48px;
+  --spacing-device-top-heading: 52px;
+  --spacing-device-botton-spacing: 36px;
+
+  // Sizes & Typography
+  --font-heading-family: #{$font-heading};
+  --font-body-family: #{$font-body};
+  --font-size-xs: 10px;
+  --font-size-s: 12px;
+  --font-size-m: 16px;
+  --font-size-l: 20px;
+  --font-size-xl: 24px;
+  --font-size-xxl: 28px;
+  --unique-btn-font-size: 14px;
+  --main-head-text: 40px;
+  --main-subheading-text: 24px;
+  --main-amount-text: 60px;
+  --font-sec-heading: 20px;
+  --sizes-btn-s: 40px;
+  --sizes-btn-m: 48px;
+  --sizes-btn-l: 56px;
+
+  // Border Radius
+  --border-radius-round: 80px;
+  --border-radius-xs: 4px;
+  --border-radius-s: 8px;
+  --border-radius-m: 12px;
+  --border-radius-l: 16px;
+  --border-radius-xl: 20px;
+  --border-radius-xxl: 24px;
+
+  // Avatars & Frames
+  --sizes-avatar-frame: 120px;
+  --sizes-avatar-chip: 60px;
+  --colors-avatar-frame-glow: #{$Color-Blue-90}; // The halo
+  --spacing-avatar-picker: 16px; // Space between choices
+}

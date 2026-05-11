@@ -1,0 +1,237 @@
+@use '@/styles/mixins' as *;
+
+.tenureCard {
+  @include mono-cards-designs;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-m);
+  margin-bottom: var(--spacing-s);
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.topRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.titleArea {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-none);
+}
+
+
+
+.titleInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--colors-base-font-color);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.labelWithInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+
+  .label {
+    margin-bottom: 0;
+  }
+
+  .infoText {
+    font-size: 0.75rem;
+    color: var(--colors-gray-font-color);
+    font-weight: 400;
+  }
+}
+
+.principalLabel {
+  font-size: 0.75rem;
+  color: var(--colors-gray-font-color);
+  font-weight: 500;
+}
+
+.emiAmount {
+  font-size: var(--font-size-l);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.cycle {
+    font-size: var(--font-size-m);
+    font-weight: 500;
+    color: var(--colors-gray-font-color);
+    margin-left: 4px;
+}
+
+.metadataRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-s);
+}
+
+.badgesGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.interestBadge, .remainingBadge {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(4px);
+}
+
+.interestBadge {
+  @include chip-design-secondary
+}
+
+.remainingBadge {
+  @include chip-design-mono
+}
+
+.interestToggles {
+  display: flex;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 3px;
+  border-radius: 8px;
+  gap: 2px;
+}
+
+.toggle {
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+
+  &.active {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--colors-base-font-color);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+  }
+}
+
+.progressSection {
+  @include progressSection;
+}
+
+.progressLabels {
+  @include progressLabels;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progressText {
+  color: var(--colors-gray-font-color);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.monthsLabel {
+  color: var(--colors-secondary-chip-txt);
+}
+
+.statusBadge {
+  @include chip-design-mono;
+  @include timelineDate;
+  padding: 4px 10px;
+  border-radius: 6px;
+
+  &.paid {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--colors-secondary-chip-txt);
+  }
+
+  &.urgent {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--colors-accent-text);
+    animation: pulse 2s infinite;
+  }
+
+  &.imminent {
+    color: var(--colors-urgent-text);
+    background: var(--colors-urgent-background);
+  }
+}
+
+.futureInfo {
+  @include chip-design-mono;
+  font-size: var(--font-size-s);
+  font-weight: 600;
+  text-transform: capitalize;
+  letter-spacing: 0.05em;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.progressWrapper {
+  @include progressWrapper;
+}
+
+.progressFill {
+  @include progressFill;
+}
+
+.timelineContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--colors-cards-stroke-color);
+}
+
+.timelineItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  .timelineLabel:nth-child(1){
+    @include timelineLabel;
+  }
+
+  .timelineDate:nth-child(2){
+    @include timelineDate;
+  }
+}
+
+.actionRow {
+  margin-top: 12px;
+  display: flex;
+}
+
+.markPaidBtn {
+  @include gradient-btn-secondary;
+  width: 100%;
+  padding: 10px;
+  font-size: var(--font-size-s);
+  border-radius: 8px;
+}
+
+
+

@@ -1,0 +1,43 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 6px 14px;
+  border-radius: 80px;
+  font-size: var(--font-size-s);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+
+  &.success {
+    background: var(--colors-secondary-chip-bg);
+    color: var(--colors-secondary-chip-txt);
+    .text { color: var(--colors-secondary-chip-txt) }
+    .iconArea { color: var(--colors-secondary-chip-txt); }
+  }
+
+  &.warning {
+    background: rgba(255, 184, 0, 0.08);
+    color: #FFB800;
+    .text { color: #FFB800; }
+    .iconArea { color: #FFB800; }
+  }
+
+  &.danger {
+    background: var(--colors-tertiary-chip-bg);
+    color: var(--colors-tertiary-chip-txt);
+    .text { color: var(--colors-tertiary-chip-txt); }
+    .iconArea { color: var(--colors-tertiary-chip-txt); }
+  }
+}
+
+.iconArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
