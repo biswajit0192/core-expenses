@@ -135,15 +135,12 @@ export default function NexusDrawer() {
     removeStagedItem(id);
   };
 
-  const handleSaveAll = async () => {
+  const handleSaveAll = () => {
     if (stagedItems.length === 0) return;
     
-    try {
-      await commitStagedItems();
-    } catch (error) {
-      console.error("Critical: Failed to sync Nexus items to Firebase:", error);
-      alert("Something went wrong while saving to Cloud.");
-    }
+    // Optimistic Save: Clear UI immediately, Firestore handles the batch sync
+    commitStagedItems();
+    closeNexus();
   };
 
   const handleClearClick = () => {

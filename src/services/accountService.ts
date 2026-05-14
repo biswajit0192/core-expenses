@@ -18,8 +18,9 @@ export const accountService = {
     const accountsRef = collection(db, 'users', userId, 'accounts');
     const querySnapshot = await getDocs(accountsRef);
 
-    // Only "Seed" if the collection is completely empty
-    if (querySnapshot.empty) {
+    // Only "Seed" if the collection is completely empty AND user is online
+    // This prevents accidental seeding of empty accounts if the network is down and persistence is still hydrating
+    if (querySnapshot.empty && typeof navigator !== 'undefined' && navigator.onLine) {
       console.log('Seeding default accounts for user:', userId);
       
       const defaults: Partial<Account>[] = [

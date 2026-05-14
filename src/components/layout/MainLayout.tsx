@@ -1,14 +1,17 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Header from './Header';
 import BottomNav from './BottomNav';
 import NexusIcon from '@/assets/icons/nexus-icon.svg?react';
 import { useNexus } from '@/context/NexusContext';
+import { useAuth } from '@/context/AuthContext';
+import { Cloud } from 'lucide-react';
 import styles from './MainLayout.module.scss';
 
 export default function MainLayout() {
   const location = useLocation();
   const { toggleNexus } = useNexus();
+  const { isSyncing } = useAuth();
 
   // Hide FAB on specific pages (like account detail/edit)
   const isDetailPage = location.pathname.includes('/edit') || location.pathname.includes('/manage');
@@ -16,6 +19,19 @@ export default function MainLayout() {
 
   return (
     <div className={styles.layout}>
+      <AnimatePresence>
+        {isSyncing && (
+          <motion.div 
+            className={styles.syncToast}
+            initial={{ opacity: 0, y: -20, x: '-50%' }}
+            animate={{ opacity: 1, y: 10, x: '-50%' }}
+            exit={{ opacity: 0, y: -20, x: '-50%' }}
+          >
+            <Cloud size={14} className={styles.syncIcon} />
+            <span>Syncing changes...</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <Header />
       <main className={styles.main}>
         <Outlet />

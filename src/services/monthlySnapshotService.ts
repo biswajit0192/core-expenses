@@ -150,7 +150,15 @@ export const monthlySnapshotService = {
     const newFixedHit = unpaidTenures + unpaidMonthlies;
     const newInitialSTS = newInitialBalance - newFixedHit;
 
-    // 3. ATOMIC OVERWRITE (Strict Phase 6.7.1 Logic)
+    // 3. DATA INTEGRITY GUARD: 
+    // If the calculated STS is 0, but the previous snapshot had a balance,
+    // this is likely a hydration/network gap. DO NOT OVERWRITE.
+    if (newInitialSTS === 0 && oldSnapshot.initialBalance > 0) {
+      console.warn(`[SnapshotService] Data Integrity Guard Triggered: Refusing to overwrite Balance ${oldSnapshot.initialBalance} with 0.`);
+      return oldSnapshot;
+    }
+
+    // 4. ATOMIC OVERWRITE (Strict Phase 6.7.1 Logic)
     const updatedFields: Partial<MonthlySnapshot> = {
       initialBalance: newInitialBalance,
       fixedHit: newFixedHit,

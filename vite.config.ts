@@ -42,7 +42,36 @@ export default defineConfig({
             purpose: 'maskable'
           }
         ]
-      }
+      },
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'google-fonts-stylesheets',
+            },
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-webfonts',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // 365 days
+              },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/www\.gstatic\.com\/firebasejs\/.*/i,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'firebase-scripts',
+            },
+          },
+        ],
+      },
     })
   ],
   resolve: {

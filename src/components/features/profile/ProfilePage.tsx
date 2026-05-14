@@ -11,6 +11,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { updateProfile } from 'firebase/auth';
 import { doc, updateDoc, collection, getDocs, writeBatch } from 'firebase/firestore';
 import { notificationService } from '@/services/notificationService';
+import { saveLocalProfileImage, getProfileImage, blobToBase64 } from '@/utils/profileImage';
 import styles from './ProfilePage.module.scss';
 
 export default function ProfilePage() {
@@ -26,7 +27,7 @@ export default function ProfilePage() {
   const displayData = {
     username: userData?.username || 'User',
     email: currentUser?.email || '',
-    avatar: userData?.photoURL || currentUser?.photoURL || 'https://api.dicebear.com/7.x/avataaars/svg?seed=default'
+    avatar: getProfileImage(userData?.photoURL || currentUser?.photoURL)
   };
 
   const handleNotificationToggle = async () => {
@@ -68,8 +69,13 @@ export default function ProfilePage() {
         const storageRef = ref(storage, `users/${currentUser.uid}/profile.webp`);
         await uploadBytes(storageRef, image);
         finalUrl = await getDownloadURL(storageRef);
+        
+        // Save Base64 version locally for offline availability
+        const base64 = await blobToBase64(image);
+        saveLocalProfileImage(base64);
       } else if (typeof image === 'string') {
         finalUrl = image;
+        saveLocalProfileImage(finalUrl);
       }
 
       if (finalUrl) {

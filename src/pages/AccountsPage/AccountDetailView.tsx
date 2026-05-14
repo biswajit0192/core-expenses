@@ -85,7 +85,7 @@ export default function AccountDetailView() {
       }
 
       if (isNew) {
-        await accountService.createAccount(currentUser.uid, {
+        accountService.createAccount(currentUser.uid, {
           name: name.trim() || 'Custom Account',
           bankName: bankName.trim() || null,
           balance,
@@ -98,7 +98,7 @@ export default function AccountDetailView() {
           theme
         });
       } else {
-        await accountService.updateAccount(currentUser.uid, id!, {
+        accountService.updateAccount(currentUser.uid, id!, {
           name,
           bankName: bankName.trim() || null,
           balance,
@@ -113,7 +113,8 @@ export default function AccountDetailView() {
 
       // Phase 6.7.1: Strict Source of Truth Sync
       // Triggered on every save (Toggle ON, Toggle OFF, or Balance Change)
-      await monthlySnapshotService.recalculateOrInitMonthlySnapshot(currentUser.uid);
+      // Note: We don't await this to keep the UI optimistic
+      monthlySnapshotService.recalculateOrInitMonthlySnapshot(currentUser.uid);
 
       navigate(-1);
     } catch (error) {

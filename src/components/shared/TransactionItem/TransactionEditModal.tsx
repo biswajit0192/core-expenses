@@ -18,21 +18,15 @@ export default function TransactionEditModal({
 }: TransactionEditModalProps) {
   const [description, setDescription] = useState(initialData.description);
   const [amount, setAmount] = useState(initialData.amount.toString());
-  const [loading, setLoading] = useState(false);
 
-  const handleSave = async () => {
+
+  const handleSave = () => {
     const numAmount = parseFloat(amount);
     if (isNaN(numAmount) || numAmount <= 0 || !description.trim()) return;
 
-    setLoading(true);
-    try {
-      await onSave({ description: description.trim(), amount: numAmount });
-      onClose();
-    } catch (error) {
-      console.error("Failed to save transaction:", error);
-    } finally {
-      setLoading(false);
-    }
+    // Optimistic Save: Fire and forget locally (Firestore handles sync)
+    onSave({ description: description.trim(), amount: numAmount });
+    onClose();
   };
 
   return (
@@ -85,14 +79,9 @@ export default function TransactionEditModal({
               <button 
                 className={styles.saveBtn} 
                 onClick={handleSave}
-                disabled={loading}
               >
-                {loading ? 'Saving...' : (
-                  <>
-                    <Save size={18} />
-                    Save Changes
-                  </>
-                )}
+                <Save size={18} />
+                Save Changes
               </button>
             </footer>
           </motion.div>

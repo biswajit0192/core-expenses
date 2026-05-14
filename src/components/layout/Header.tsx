@@ -1,11 +1,12 @@
 import { Link, useLocation, useNavigate, matchPath } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
+import { getProfileImage } from '@/utils/profileImage';
 import styles from './Header.module.scss';
 import logo from '@/assets/Core-logo.svg';
 
 export default function Header() {
-  const { currentUser, userData, isCloudSynced, isOnline } = useAuth();
+  const { currentUser, userData, isSyncing, isOnline } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === '/' || location.pathname === '/dashboard';
@@ -46,7 +47,7 @@ export default function Header() {
     pageTitle = 'Flow';
   }
 
-  const profileImage = userData?.photoURL || currentUser?.photoURL || "https://api.dicebear.com/7.x/avataaars/svg?seed=default";
+  const profileImage = getProfileImage(userData?.photoURL || currentUser?.photoURL);
 
   return (
     <header className={styles.header}>
@@ -70,8 +71,8 @@ export default function Header() {
         
         <div className={styles.rightSection}>
           <div 
-            className={`${styles.syncDot} ${!isOnline ? styles.offline : !isCloudSynced ? styles.syncing : styles.synced}`}
-            title={!isOnline ? 'Offline' : !isCloudSynced ? 'Syncing...' : 'Cloud Balanced'}
+            className={`${styles.syncDot} ${!isOnline ? styles.offline : isSyncing ? styles.syncing : styles.synced}`}
+            title={!isOnline ? 'Offline' : isSyncing ? 'Syncing changes...' : 'All changes saved to cloud'}
           />
           <Link to="/profile" className={styles.profileWrapper}>
             <img src={profileImage} alt="Profile" className={styles.profilePic} />

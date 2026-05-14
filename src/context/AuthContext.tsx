@@ -34,6 +34,7 @@ interface AuthContextType {
   userData: UserData | null;
   loading: boolean;
   isCloudSynced: boolean;
+  isSyncing: boolean;
   isOnline: boolean;
   signUp: (email: string, username: string, pass: string) => Promise<void>;
   login: (identifier: string, pass: string) => Promise<void>;
@@ -53,6 +54,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
   const [isCloudSynced, setIsCloudSynced] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
   const [isOnline, setIsOnline] = useState(window.navigator.onLine);
 
   async function signUp(email: string, username: string, pass: string) {
@@ -166,12 +168,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setCurrentUser(user);
       
       if (user) {
-        // Listen to User document in Firestore
-        unsubscribeFirestore = onSnapshot(doc(db, 'users', user.uid), (docSnap) => {
+        unsubscribeFirestore = onSnapshot(doc(db, 'users', user.uid), { includeMetadataChanges: true }, (docSnap) => {
           if (docSnap.exists()) {
-            setUserData(docSnap.data() as UserData);
-            // If we got a snapshot, we are synced (unless it's just from cache)
+            const data = docSnap.data() as UserData;
+            setUserData(data);
+            
+            // Sync remote photoURL to local storage for offline fallback
+            if (data.photoURL) {
+              import('@/utils/profileImage').then(m => m.saveLocalProfileImage(data.photoURL!));
+            }
+
+            // Metadata-driven sync status
             setIsCloudSynced(!docSnap.metadata.fromCache);
+            setIsSyncing(docSnap.metadata.hasPendingWrites);
           }
           setLoading(false);
         });
@@ -179,6 +188,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUserData(null);
         setLoading(false);
         setIsCloudSynced(false);
+        setIsSyncing(false);
       }
     });
 
@@ -195,6 +205,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     userData,
     loading,
     isCloudSynced,
+    isSyncing,
     isOnline,
     signUp,
     login,
