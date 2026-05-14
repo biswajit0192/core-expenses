@@ -1,8 +1,8 @@
-import { useState, useMemo, useRef } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Plus } from 'lucide-react';
 import { useAccounts } from '@/hooks/useAccounts';
 import { useTransactions } from '@/hooks/useTransactions';
-import addIcon from '@/assets/icons/add.svg';
 import AccountCard from '@/components/shared/AccountCard/AccountCard';
 import ExpandableTransactionItem from '@/components/shared/TransactionItem/ExpandableTransactionItem';
 import AccountStatusCard from '@/components/features/accounts/AccountStatusCard';
@@ -18,14 +18,26 @@ export default function AccountsPage() {
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  // Initial scroll to center the first account card
+  useEffect(() => {
+    if (scrollRef.current && accounts.length > 0) {
+      // 80px is the offset to center the first account (64px button + 16px gap)
+      scrollRef.current.scrollLeft = 80;
+    }
+  }, [accountsLoading]);
+
   // Handle scroll to update active index
   const handleScroll = () => {
     if (!scrollRef.current) return;
     const scrollPosition = scrollRef.current.scrollLeft;
-    const cardWidth = 246; // Card width (230) + gap (16)
-    const newIndex = Math.round(scrollPosition / cardWidth);
-    if (newIndex !== activeIndex && newIndex >= 0 && newIndex < accounts.length) {
-      setActiveIndex(newIndex);
+    
+    // AddCard (64px) + Gap (16px) = 80px offset
+    // AccountCard (230px) + Gap (16px) = 246px stride
+    const accIndex = Math.round((scrollPosition - 80) / 246);
+    const clampedIndex = Math.max(0, Math.min(accounts.length - 1, accIndex));
+
+    if (clampedIndex !== activeIndex) {
+      setActiveIndex(clampedIndex);
     }
   };
 
@@ -100,14 +112,6 @@ export default function AccountsPage() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.stickyHeader}>
-        <div className={styles.accountsHeaderArea}>
-          <span className={styles.sectionTitle}>Your Accounts</span>
-          <button className={styles.addAccountBtn} onClick={() => navigate('/accounts/new/edit')}>
-            <img src={addIcon} alt="add" width="16" height="16" /> Add
-          </button>
-
-        </div>
 
         {/* Accounts Swiper */}
         <section className={styles.swiperSection}>
@@ -116,6 +120,9 @@ export default function AccountsPage() {
             ref={scrollRef}
             onScroll={handleScroll}
           >
+            <button className={styles.addCard} onClick={() => navigate('/accounts/new/edit')}>
+              <Plus size={32} />
+            </button>
             {accounts.map((account, index) => (
               <AccountCard 
                 key={account.id} 
@@ -128,8 +135,9 @@ export default function AccountsPage() {
                 onClick={() => navigate(`/accounts/${account.id}/edit`)}
               />
             ))}
-            {/* Spacer for last card alignment */}
-            <div className={styles.spacer} />
+            <button className={styles.addCard} onClick={() => navigate('/accounts/new/edit')}>
+              <Plus size={32} />
+            </button>
           </div>
           
           {/* Pagination Dots */}
@@ -153,7 +161,6 @@ export default function AccountsPage() {
         <div className={styles.txHeaderArea}>
           <h2 className={styles.title}>Transactions</h2>
         </div>
-      </div>
 
       {/* Transactions List */}
       <main className={styles.txSection}>

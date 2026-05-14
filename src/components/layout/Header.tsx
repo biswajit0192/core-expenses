@@ -2,13 +2,24 @@ import { Link, useLocation, useNavigate, matchPath } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { getProfileImage } from '@/utils/profileImage';
+import { useEffect, useState } from 'react';
 import styles from './Header.module.scss';
 import logo from '@/assets/Core-logo.svg';
 
 export default function Header() {
   const { currentUser, userData, isSyncing, isOnline } = useAuth();
+  const [headerAvatar, setHeaderAvatar] = useState<string | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleUpdate = (e: any) => {
+      setHeaderAvatar(e.detail);
+    };
+    window.addEventListener('core_profile_image_updated', handleUpdate);
+    return () => window.removeEventListener('core_profile_image_updated', handleUpdate);
+  }, []);
+
   const isHome = location.pathname === '/' || location.pathname === '/dashboard';
 
   // 1. Root Titles Map
@@ -47,7 +58,7 @@ export default function Header() {
     pageTitle = 'Flow';
   }
 
-  const profileImage = getProfileImage(userData?.photoURL || currentUser?.photoURL);
+  const profileImage = headerAvatar || getProfileImage(userData?.photoURL || currentUser?.photoURL);
 
   return (
     <header className={styles.header}>

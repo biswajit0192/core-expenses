@@ -17,6 +17,7 @@ import styles from './ProfilePage.module.scss';
 export default function ProfilePage() {
   const navigate = useNavigate();
   const { currentUser, userData, logout, deleteAccount } = useAuth();
+  const [localAvatar, setLocalAvatar] = useState<string | null>(null);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isImageSelectorOpen, setIsImageSelectorOpen] = useState(false);
@@ -27,7 +28,7 @@ export default function ProfilePage() {
   const displayData = {
     username: userData?.username || 'User',
     email: currentUser?.email || '',
-    avatar: getProfileImage(userData?.photoURL || currentUser?.photoURL)
+    avatar: localAvatar || getProfileImage(userData?.photoURL || currentUser?.photoURL)
   };
 
   const handleNotificationToggle = async () => {
@@ -63,28 +64,42 @@ export default function ProfilePage() {
     if (!currentUser) return;
 
     try {
-      let finalUrl = '';
-
+      let localUrl = '';
+      
+      // 1. Prepare Local Version (Optimistic)
       if (isCustom && image instanceof Blob) {
-        const storageRef = ref(storage, `users/${currentUser.uid}/profile.webp`);
-        await uploadBytes(storageRef, image);
-        finalUrl = await getDownloadURL(storageRef);
-        
-        // Save Base64 version locally for offline availability
-        const base64 = await blobToBase64(image);
-        saveLocalProfileImage(base64);
+        localUrl = await blobToBase64(image);
       } else if (typeof image === 'string') {
-        finalUrl = image;
-        saveLocalProfileImage(finalUrl);
+        localUrl = image;
       }
 
-      if (finalUrl) {
-        await updateProfile(currentUser, { photoURL: finalUrl });
-        const userDocRef = doc(db, 'users', currentUser.uid);
-        await updateDoc(userDocRef, { photoURL: finalUrl });
+      if (localUrl) {
+        // 2. Update Local Persistence IMMEDIATELY (Source of Truth)
+        saveLocalProfileImage(localUrl);
+        setLocalAvatar(localUrl);
+        
+        // 3. Update Auth/Firestore in background (don't await)
+        const syncToCloud = async () => {
+          try {
+            let finalUrl = localUrl;
+            if (isCustom && image instanceof Blob) {
+              const storageRef = ref(storage, `users/${currentUser.uid}/profile.webp`);
+              await uploadBytes(storageRef, image);
+              finalUrl = await getDownloadURL(storageRef);
+            }
+            
+            await updateProfile(currentUser, { photoURL: finalUrl });
+            const userDocRef = doc(db, 'users', currentUser.uid);
+            await updateDoc(userDocRef, { photoURL: finalUrl });
+          } catch (syncErr) {
+            console.error('[Profile] Background sync failed:', syncErr);
+          }
+        };
+
+        syncToCloud();
       }
     } catch (err) {
-      console.error('[Profile] Error updating image:', err);
+      console.error('[Profile] Error initiating image update:', err);
       alert('Failed to update profile image.');
     }
   };

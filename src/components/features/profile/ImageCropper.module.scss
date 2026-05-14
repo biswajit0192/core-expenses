@@ -1,0 +1,105 @@
+@use '@/styles/mixins' as *;
+
+.container {
+  position: fixed;
+  inset: 0;
+  background: var(--colors-base-bg-color); // #0B0B0F
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+}
+
+.cropperWrapper {
+  flex: 1;
+  position: relative;
+  background: #000;
+}
+
+.controls {
+  padding: 24px;
+  background: var(--colors-base-bg-color);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.zoomControl {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--colors-gray-font-color);
+
+  .slider {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2); // Brighter track
+    border-radius: 2px;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #FFFFFF; // Pure white for high visibility
+      cursor: pointer;
+      border: 2px solid var(--colors-brand-primary-blue);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    &::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      cursor: pointer;
+      border: 2px solid var(--colors-brand-primary-blue);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+
+  button {
+    flex: 1;
+    height: 50px;
+    border-radius: var(--border-radius-m);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+}
+
+.cancelBtn {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--colors-base-font-color);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  &:active {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.confirmBtn {
+  background: linear-gradient(135deg, var(--colors-prime-btn-pt1) 0%, var(--colors-prime-btn-pt2) 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
