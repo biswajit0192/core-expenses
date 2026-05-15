@@ -109,14 +109,19 @@
 
 .txSection {
   padding-bottom: var(--spacing-xs);
+  position: relative;
+  z-index: 1;
 }
 
 .txHeaderArea {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: 0 0;
-  margin: var(--spacing-s) 0;
+  padding: var(--spacing-s) 0;
+  position: sticky;
+  top: -1px;
+  background-color: var(--colors-surface-base);
+  z-index: 2;
   
   .title {
     font-size: var(--font-size-l);
@@ -149,6 +154,9 @@
   color: var(--colors-gray-font-color);
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  position: sticky;
+  top: 46px;
+  background-color: var(--colors-surface-base);
 }
 
 .groupItems {

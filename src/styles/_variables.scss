@@ -76,11 +76,11 @@ $font-body: 'Inter', sans-serif;
   --color-card-dark-blue-pt2: #{rgba($Color-Blue-65, 20%)};
   --color-card-dark-green-pt1: #0F241E;
   --color-card-dark-green-pt2: #226754;
-  --color-card-solid-bg: #111118;
+  --color-card-solid-bg: hsl(240, 17%, 10%);
   --color-card-item-bg: #1A1A23;
   --color-card-item-bg-second: hsl(240, 11%, 20%);
   --color-bottom-nav-bg: #{rgba($Color-Blue-90, 18%)};
-  --color-transaction-item-bg: rgba(26, 26, 35, 0.7);
+  --color-transaction-item-bg: hsla(240, 15%, 16%, 0.7);
   --color-transaction-icon-bg: #{rgba($Color-Mono-100, 5%)};
   --color-transaction-received-icon-bg: #{rgba($Color-Green-80, 5%)};
 

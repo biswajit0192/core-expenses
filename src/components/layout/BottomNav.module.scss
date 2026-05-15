@@ -3,7 +3,7 @@
 .nav {
   width: calc(100% - (32px + 52px + 8px));
   padding-bottom: env(safe-area-inset-bottom, var(--spacing-m));
-  background-color: #0d0d0d9c;
+  background-color: hsl(0deg 0% 48% / 11%);
   backdrop-filter: blur(20px);
   border: 1px solid var(--colors-cards-stroke-color);
   position: fixed;
