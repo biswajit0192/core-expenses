@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CirclePlus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { useAccounts } from '@/hooks/useAccounts';
 import { useTransactions } from '@/hooks/useTransactions';
 import AccountCard from '@/components/shared/AccountCard/AccountCard';
@@ -108,7 +108,7 @@ export default function AccountsPage() {
         <section className={styles.swiperSection}>
           <div className={styles.sliderContainer}>
             <button className={styles.addStrip} onClick={() => navigate('/accounts/new/edit')}>
-              <CirclePlus size={24} />
+              <Plus size={24} />
             </button>
 
             <div 

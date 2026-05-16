@@ -55,17 +55,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--colors-primary);
+  color: var(--colors-gray-font-color);
   cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover {
     border-color: rgba(255, 255, 255, 0.25);
+    color: var(--colors-base-font-color);
     background: rgba(255, 255, 255, 0.05);
   }
 
   &:active {
     transform: scale(0.95);
+  }
+
+  svg {
+    opacity: 0.6;
   }
 }
 
