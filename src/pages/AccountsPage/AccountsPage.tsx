@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus } from 'lucide-react';
+import { CirclePlus } from 'lucide-react';
 import { useAccounts } from '@/hooks/useAccounts';
 import { useTransactions } from '@/hooks/useTransactions';
 import AccountCard from '@/components/shared/AccountCard/AccountCard';
@@ -18,23 +18,14 @@ export default function AccountsPage() {
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Initial scroll to center the first account card
-  useEffect(() => {
-    if (scrollRef.current && accounts.length > 0) {
-      // 80px is the offset to center the first account (64px button + 16px gap)
-      scrollRef.current.scrollLeft = 80;
-    }
-  }, [accountsLoading]);
-
   // Handle scroll to update active index
   const handleScroll = () => {
     if (!scrollRef.current) return;
     const scrollPosition = scrollRef.current.scrollLeft;
+    const cardWidth = 246; // Card width (230) + gap (16)
     
-    // AddCard (64px) + Gap (16px) = 80px offset
-    // AccountCard (230px) + Gap (16px) = 246px stride
-    const accIndex = Math.round((scrollPosition - 80) / 246);
-    const clampedIndex = Math.max(0, Math.min(accounts.length - 1, accIndex));
+    const newIndex = Math.round(scrollPosition / cardWidth);
+    const clampedIndex = Math.max(0, Math.min(accounts.length - 1, newIndex));
 
     if (clampedIndex !== activeIndex) {
       setActiveIndex(clampedIndex);
@@ -115,29 +106,29 @@ export default function AccountsPage() {
 
         {/* Accounts Swiper */}
         <section className={styles.swiperSection}>
-          <div 
-            className={styles.swiper} 
-            ref={scrollRef}
-            onScroll={handleScroll}
-          >
-            <button className={styles.addCard} onClick={() => navigate('/accounts/new/edit')}>
-              <Plus size={32} />
+          <div className={styles.sliderContainer}>
+            <button className={styles.addStrip} onClick={() => navigate('/accounts/new/edit')}>
+              <CirclePlus size={24} />
             </button>
-            {accounts.map((account, index) => (
-              <AccountCard 
-                key={account.id} 
-                account={account} 
-                className={`
-                  ${styles.cardWrapper} 
-                  ${index === activeIndex ? styles.active : ''} 
-                  ${styles[account.theme]}
-                `}
-                onClick={() => navigate(`/accounts/${account.id}/edit`)}
-              />
-            ))}
-            <button className={styles.addCard} onClick={() => navigate('/accounts/new/edit')}>
-              <Plus size={32} />
-            </button>
+
+            <div 
+              className={styles.swiper} 
+              ref={scrollRef}
+              onScroll={handleScroll}
+            >
+              {accounts.map((account, index) => (
+                <AccountCard 
+                  key={account.id} 
+                  account={account} 
+                  className={`
+                    ${styles.cardWrapper} 
+                    ${index === activeIndex ? styles.active : ''} 
+                    ${styles[account.theme]}
+                  `}
+                  onClick={() => navigate(`/accounts/${account.id}/edit`)}
+                />
+              ))}
+            </div>
           </div>
           
           {/* Pagination Dots */}

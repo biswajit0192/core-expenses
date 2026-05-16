@@ -20,49 +20,52 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-xxs);
-  padding: 0 var(--spacing-xxs) 0;
+  gap: var(--spacing-xs);
+  width: 100%;
+}
+
+.sliderContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: var(--spacing-xs);
+  padding: 0;
 }
 
 .swiper {
+  flex: 1;
   display: flex;
   overflow-x: scroll;
-  // Symmetric padding allows both the first and last elements to be centered
-  padding: var(--spacing-l) 0 var(--spacing-xl); 
+  // Padding adjusted to center the 230px card in the remaining swiper area
+  // We offset it by the addStrip width and gap to keep visual balance
+  padding: var(--spacing-l) var(--spacing-xs) var(--spacing-xl); 
   gap: var(--spacing-m);
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: calc(50% - 115px); // Ensures snapping target is viewport center
+  scroll-padding-inline: calc(50% - 115px - 32px);
   -webkit-overflow-scrolling: touch;
-  width: 100%;
   @include hide-scrollbar;
 }
 
-.addCard {
-  flex: 0 0 48px; // Narrow strip
+.addStrip {
+  flex: 0 0 48px;
   height: 142px;
   border-radius: var(--border-radius-m);
-  border: 2px dashed rgba(255, 255, 255, 0.1);
+  border: 1px dashed var(--colors-strong-stroke-color);
   background: rgba(255, 255, 255, 0.02);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--colors-gray-font-color);
+  color: var(--colors-primary);
   cursor: pointer;
   transition: all 0.2s ease;
-  scroll-snap-align: center;
 
   &:hover {
     border-color: rgba(255, 255, 255, 0.25);
-    color: var(--colors-base-font-color);
     background: rgba(255, 255, 255, 0.05);
   }
 
   &:active {
     transform: scale(0.95);
-  }
-
-  svg {
-    opacity: 0.6;
   }
 }
 

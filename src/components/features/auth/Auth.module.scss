@@ -4,9 +4,8 @@
   color: var(--colors-accent);
   font-size: var(--unique-btn-font-size);
   text-align: center;
-  background-color: var(--colors-accent-chip-bg);
-  padding: var(--spacing-xs);
-  border-radius: var(--sizes-border-m);
+  padding: var(--spacing-xs) 0;
+  font-weight: 500;
 }
 
 

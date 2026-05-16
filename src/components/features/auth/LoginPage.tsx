@@ -37,7 +37,13 @@ export default function LoginPage() {
       await login(identifier, password);
       navigate('/');
     } catch (err: any) {
-      setError(err.message || 'Failed to sign in');
+      if (err.code === 'auth/invalid-credential' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+        setError('Invalid email or password. Please try again.');
+      } else if (err.code === 'auth/too-many-requests') {
+        setError('Too many failed attempts. Please try again later.');
+      } else {
+        setError(err.message || 'Failed to sign in');
+      }
     } finally {
       setLoading(false);
     }

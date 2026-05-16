@@ -91,7 +91,10 @@ export default function Flow() {
   }, [currentUser]);
 
   // Calculate Global Summary Stats
-  const tenureBurn = tenures.filter(f => !f.isSettled).reduce((sum, c) => sum + (c.monthlyEmi || 0), 0);
+  const tenureBurn = tenures
+    .filter(f => !f.isSettled && (f.paidMonths?.length || 0) < f.totalMonths)
+    .reduce((sum, c) => sum + (c.monthlyEmi || 0), 0);
+  
   const monthlyBurn = monthlies.filter(s => !s.isSettled).reduce((sum, sub) => {
     const amount = sub.amount || 0;
     return sum + (sub.cycle === 'YEARLY' ? amount / 12 : amount);
