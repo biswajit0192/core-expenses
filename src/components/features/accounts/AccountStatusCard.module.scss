@@ -18,20 +18,15 @@
 
 .labelGroup {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  
-  .icon {
-    display: flex;
-    color: var(--colors-gray-font-color);
-  }
+  align-items: baseline;
+  gap: 4px;
 }
 
-.percentage {
+.amountLabel {
   font-size: 14px;
   font-weight: 700;
   color: var(--colors-base-font-color);
-  letter-spacing: -0.01em;
+  margin-right: 4px;
 }
 
 .daysLeft {
@@ -43,13 +38,26 @@
 }
 
 /* Progress Bar - Synchronized with TenureCard */
+.progressContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .progressWrapper {
-  width: 100%;
+  width: 84%;
   height: 6px;
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 3px;
   overflow: hidden;
-  margin-bottom: var(--spacing-s);
+}
+
+.percentageText {
+  width: 16%;
+  text-align: right;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--colors-base-font-color);
 }
 
 .progressFill {
@@ -72,13 +80,6 @@
   &.themeSavings {
     background: linear-gradient(90deg, var(--colors-secondary-btn-pt1), var(--colors-secondary-btn-pt2));
   }
-}
-
-.bottomRow {
-  display: flex;
-  justify-content: flex-end;
-  align-items: baseline;
-  gap: 4px;
 }
 
 .currentAmount {

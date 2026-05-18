@@ -140,14 +140,7 @@ export default function Flow() {
     const loanTotal = activeLoanItems.reduce((sum, item) => sum + (item.monthlyEmi || 0), 0);
 
     return (
-      <div 
-
-          key="tenure-list"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className={styles.list}
-        >
+      <div className={styles.list}>
           <div className={styles.tabActionArea}>
             <span className={styles.sectionLabel}>Tenure Flows</span>
             <button className={styles.addBtn} onClick={() => handleAdd('tenure')}>
@@ -248,14 +241,7 @@ export default function Flow() {
     const borrowedTotal = activeBorrowed.reduce((sum, d) => sum + ((d.totalAmount || 0) - (d.amountSettled || 0)), 0);
 
     return (
-      <div 
-
-          key="social-list"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className={styles.list}
-        >
+      <div className={styles.list}>
           <div className={styles.tabActionArea}>
             <span className={styles.sectionLabel}>Social Debts</span>
             <button className={styles.addBtn} onClick={() => handleAdd('social')}>
@@ -358,14 +344,7 @@ export default function Flow() {
     }, {} as Record<string, Monthly[]>);
 
     return (
-      <div 
-
-          key="monthly-list"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className={styles.list}
-        >
+      <div className={styles.list}>
           <div className={styles.tabActionArea}>
             <span className={styles.sectionLabel}>Monthly Bills</span>
             <button className={styles.addBtn} onClick={() => handleAdd('monthly')}>

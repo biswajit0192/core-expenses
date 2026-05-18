@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, Target, PlusCircle } from 'lucide-react';
+import { PlusCircle } from 'lucide-react';
 import type { Account } from '@/types';
 import styles from './AccountStatusCard.module.scss';
 
@@ -40,7 +40,7 @@ export default function AccountStatusCard({ account, onActionClick }: AccountSta
       displayAmount = totalSpent;
       percentage = Math.min(100, (totalSpent / limit) * 100);
       displayPercentage = Math.round((totalSpent / limit) * 100);
-      label = `${displayPercentage}% Spent`;
+      label = 'Spent';
 
       // Spending Theme logic
       if (displayPercentage > 100) themeClass = 'themeDanger';
@@ -50,7 +50,7 @@ export default function AccountStatusCard({ account, onActionClick }: AccountSta
       // Savings logic
       percentage = Math.min(100, (current / limit) * 100);
       displayPercentage = Math.round((current / limit) * 100);
-      label = `Reached Goal ${displayPercentage}%`;
+      label = 'Saved';
       themeClass = 'themeSavings';
     }
 
@@ -78,37 +78,30 @@ export default function AccountStatusCard({ account, onActionClick }: AccountSta
       </div>
     );
   }
-  const { percentage, daysLeft, themeClass, displayAmount, label } = statusData!;
+  const { percentage, displayPercentage, daysLeft, themeClass, displayAmount, label } = statusData!;
   return (
     <div className={styles.statusCard}>
       <div className={styles.topRow}>
         <div className={styles.labelGroup}>
-          <span className={styles.icon}>
-            {isSpending ? <TrendingUp size={16} /> : <Target size={16} />}
-          </span>
-          <span className={styles.percentage}>{label}</span>
+          <span className={styles.amountLabel}>{label}</span>
+          <span className={styles.currentAmount}>₹{displayAmount.toLocaleString('en-IN')}</span>
+          <span className={styles.limitAmount}>/ ₹{limit.toLocaleString('en-IN')}</span>
         </div>
         <div className={styles.daysLeft}>
           {daysLeft > 0 ? `${daysLeft} days left` : 'Goal reached!'}
         </div>
       </div>
 
-      <div className={styles.progressWrapper}>
-        <motion.div 
-          className={`${styles.progressFill} ${styles[themeClass]}`}
-          initial={{ width: 0 }}
-          animate={{ width: `${percentage}%` }}
-          transition={{ duration: 1, ease: 'easeOut' }}
-        />
-      </div>
-
-      <div className={styles.bottomRow}>
-        <div className={styles.currentAmount}>
-          ₹{displayAmount.toLocaleString('en-IN')}
+      <div className={styles.progressContainer}>
+        <div className={styles.progressWrapper}>
+          <motion.div 
+            className={`${styles.progressFill} ${styles[themeClass]}`}
+            initial={{ width: 0 }}
+            animate={{ width: `${percentage}%` }}
+            transition={{ duration: 1, ease: 'easeOut' }}
+          />
         </div>
-        <div className={styles.limitAmount}>
-          / ₹{limit.toLocaleString('en-IN')}
-        </div>
+        <span className={styles.percentageText}>{displayPercentage}%</span>
       </div>
     </div>
   );
