@@ -17,7 +17,7 @@ export default function BottomNav() {
 
 
   return (
-    <nav className={styles.nav}>
+    <nav className={`${styles.nav} mobElement`}>
       <div className={styles.container}>
         {navItems.map((item) => (
           <NavLink

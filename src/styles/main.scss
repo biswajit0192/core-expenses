@@ -86,3 +86,17 @@ h2 {
     opacity: 0.8;
   }
 }
+
+// Responsive Utility Classes
+.mobElement {
+  @media (min-width: 1024px) {
+    display: none !important;
+  }
+}
+
+.desktopElement {
+  display: none !important;
+  @media (min-width: 1024px) {
+    display: flex !important;
+  }
+}

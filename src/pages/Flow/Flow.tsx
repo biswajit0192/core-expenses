@@ -30,8 +30,8 @@ interface TabItem {
 
 const tabs: TabItem[] = [
   { id: 'tenure', label: 'Tenure', icon: <Archive size={18} /> },
-  { id: 'social', label: 'Social', icon: <Users size={18} /> },
   { id: 'monthly', label: 'Monthly', icon: <RefreshCcw size={18} /> },
+  { id: 'social', label: 'Social', icon: <Users size={18} /> },
 ];
 
 export default function Flow() {
@@ -126,22 +126,22 @@ export default function Flow() {
     navigate(`/flow/manage/${type}/new`);
   };
 
-  const renderContent = () => {
-    if (activeTab === 'tenure') {
-      const emiItems = tenures.filter(c => (c.type || '').toUpperCase() === 'EMI');
-      const loanItems = tenures.filter(c => (c.type || '').toUpperCase() === 'LOAN');
-      
-      const isItemSettled = (i: any) => i.isSettled || (i.paidMonths?.length >= i.totalMonths);
-      
-      const activeEmiItems = emiItems.filter(i => !isItemSettled(i));
-      const activeLoanItems = loanItems.filter(i => !isItemSettled(i));
-      const archivedItems = tenures.filter(i => isItemSettled(i));
-      
-      const emiTotal = activeEmiItems.reduce((sum, item) => sum + (item.monthlyEmi || 0), 0);
-      const loanTotal = activeLoanItems.reduce((sum, item) => sum + (item.monthlyEmi || 0), 0);
+  const renderTenureContent = () => {
+    const emiItems = tenures.filter(c => (c.type || '').toUpperCase() === 'EMI');
+    const loanItems = tenures.filter(c => (c.type || '').toUpperCase() === 'LOAN');
+    
+    const isItemSettled = (i: any) => i.isSettled || (i.paidMonths?.length >= i.totalMonths);
+    
+    const activeEmiItems = emiItems.filter(i => !isItemSettled(i));
+    const activeLoanItems = loanItems.filter(i => !isItemSettled(i));
+    const archivedItems = tenures.filter(i => isItemSettled(i));
+    
+    const emiTotal = activeEmiItems.reduce((sum, item) => sum + (item.monthlyEmi || 0), 0);
+    const loanTotal = activeLoanItems.reduce((sum, item) => sum + (item.monthlyEmi || 0), 0);
 
-      return (
-        <motion.div 
+    return (
+      <div 
+
           key="tenure-list"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -229,26 +229,27 @@ export default function Flow() {
               </AnimatePresence>
             </div>
           )}
-        </motion.div>
-      );
+      </div>
+    );
+  };
+
+  const handleSettleDebt = async (id: string) => {
+    if (window.confirm('Mark this debt as fully settled and archive it?')) {
+      await firebaseFlowService.settleFlow(currentUser!.uid, id, 'SOCIAL');
     }
+  };
 
-    const handleSettleDebt = async (id: string) => {
-      if (window.confirm('Mark this debt as fully settled and archive it?')) {
-        await firebaseFlowService.settleFlow(currentUser!.uid, id, 'SOCIAL');
-      }
-    };
+  const renderSocialContent = () => {
+    const activeLent = socials.filter(d => (d.type || '').toUpperCase() === 'LENT' && !d.isSettled);
+    const activeBorrowed = socials.filter(d => (d.type || '').toUpperCase() === 'BORROWED' && !d.isSettled);
+    const archivedItems = socials.filter(d => d.isSettled);
 
-    if (activeTab === 'social') {
-      const activeLent = socials.filter(d => (d.type || '').toUpperCase() === 'LENT' && !d.isSettled);
-      const activeBorrowed = socials.filter(d => (d.type || '').toUpperCase() === 'BORROWED' && !d.isSettled);
-      const archivedItems = socials.filter(d => d.isSettled);
+    const lentTotal = activeLent.reduce((sum, d) => sum + ((d.totalAmount || 0) - (d.amountSettled || 0)), 0);
+    const borrowedTotal = activeBorrowed.reduce((sum, d) => sum + ((d.totalAmount || 0) - (d.amountSettled || 0)), 0);
 
-      const lentTotal = activeLent.reduce((sum, d) => sum + ((d.totalAmount || 0) - (d.amountSettled || 0)), 0);
-      const borrowedTotal = activeBorrowed.reduce((sum, d) => sum + ((d.totalAmount || 0) - (d.amountSettled || 0)), 0);
+    return (
+      <div 
 
-      return (
-        <motion.div 
           key="social-list"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -336,33 +337,29 @@ export default function Flow() {
               </AnimatePresence>
             </div>
           )}
-        </motion.div>
-      );
-    }
+      </div>
+    );
+  };
 
-    if (activeTab === 'monthly') {
-      const activeSubs = monthlies.filter(s => !s.isSettled);
-      const archivedSubs = monthlies.filter(s => s.isSettled);
+  const renderMonthlyContent = () => {
+    const activeSubs = monthlies.filter(s => !s.isSettled);
+    const archivedSubs = monthlies.filter(s => s.isSettled);
 
-      const handleTogglePaid = async (id: string, type: 'TENURE' | 'MONTHLY', isPaid: boolean) => {
-        if (!currentUser) return;
-        await firebaseFlowService.togglePaidMonth(currentUser.uid, id, type, monthKey, isPaid);
-      };
+    const handleTogglePaid = async (id: string, type: 'TENURE' | 'MONTHLY', isPaid: boolean) => {
+      if (!currentUser) return;
+      await firebaseFlowService.togglePaidMonth(currentUser.uid, id, type, monthKey, isPaid);
+    };
 
-      // const monthlyBurn = activeSubs.reduce((sum, sub) => {
-      //   return sum + (sub.cycle === 'MONTHLY' ? sub.amount : sub.amount / 12);
-      // }, 0);
-      // const yearlyBurn = monthlyBurn * 12;
+    const groups = activeSubs.reduce((acc, sub) => {
+      const cat = sub.category || 'Other';
+      if (!acc[cat]) acc[cat] = [];
+      acc[cat].push(sub);
+      return acc;
+    }, {} as Record<string, Monthly[]>);
 
-      const groups = activeSubs.reduce((acc, sub) => {
-        const cat = sub.category || 'Other';
-        if (!acc[cat]) acc[cat] = [];
-        acc[cat].push(sub);
-        return acc;
-      }, {} as Record<string, Monthly[]>);
+    return (
+      <div 
 
-      return (
-        <motion.div 
           key="monthly-list"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -451,11 +448,39 @@ export default function Flow() {
               </AnimatePresence>
             </div>
           )}
-        </motion.div>
-      );
-    }
+      </div>
+    );
+  };
 
-    return null;
+  // Swipe Handlers
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe || isRightSwipe) {
+      const currentIndex = tabs.findIndex(t => t.id === activeTab);
+      if (isLeftSwipe && currentIndex < tabs.length - 1) {
+        navigate(`/flow/${tabs[currentIndex + 1].id}`);
+      }
+      if (isRightSwipe && currentIndex > 0) {
+        navigate(`/flow/${tabs[currentIndex - 1].id}`);
+      }
+    }
   };
 
 
@@ -479,52 +504,41 @@ export default function Flow() {
 
       <div className={styles.tabHeader}>
         <div className={styles.tabGroupContainer}>
-          {/* Wrapper A: Financials */}
-          <div className={styles.tabWrapper}>
-            {tabs.filter(t => t.id === 'tenure' || t.id === 'monthly').map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => navigate(`/flow/${tab.id}`)}
-                className={`${styles.tabBtn} ${activeTab === tab.id ? styles.active : ''}`}
-              >
-                {activeTab === tab.id && (
-                  <motion.div
-                     layoutId="activeTab"
-                    className={styles.activeHighlight}
-                    transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-                <span className={styles.tabLabel}>{tab.label}</span>
-              </button>
-            ))}
-          </div>
-
-          {/* Wrapper B: Personal */}
-          <div className={styles.tabWrapper}>
-            {tabs.filter(t => t.id === 'social').map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => navigate(`/flow/${tab.id}`)}
-                className={`${styles.tabBtn} ${activeTab === tab.id ? styles.active : ''}`}
-              >
-                {activeTab === tab.id && (
-                  <motion.div
-                     layoutId="activeTab"
-                    className={styles.activeHighlight}
-                    transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-                <span className={styles.tabLabel}>{tab.label}</span>
-              </button>
-            ))}
-          </div>
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => navigate(`/flow/${tab.id}`)}
+              className={`${styles.tabBtn} ${activeTab === tab.id ? styles.active : ''}`}
+            >
+              <span className={styles.tabLabel}>{tab.label}</span>
+              {activeTab === tab.id && (
+                <motion.div
+                  layoutId="activeTabIndicator"
+                  className={styles.activeIndicator}
+                  transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                />
+              )}
+            </button>
+          ))}
         </div>
       </div>
 
       <main className={styles.content}>
-        <AnimatePresence mode="wait">
-          {renderContent()}
-        </AnimatePresence>
+        <div 
+          className={styles.swipeContainer}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
+          <div 
+            className={styles.swipeWrapper}
+            style={{ transform: `translateX(-${tabs.findIndex(t => t.id === activeTab) * 100}%)` }}
+          >
+            <div className={styles.swipePanel}>{renderTenureContent()}</div>
+            <div className={styles.swipePanel}>{renderMonthlyContent()}</div>
+            <div className={styles.swipePanel}>{renderSocialContent()}</div>
+          </div>
+        </div>
       </main>
     </div>
   );

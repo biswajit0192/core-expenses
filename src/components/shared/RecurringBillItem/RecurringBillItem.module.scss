@@ -1,7 +1,8 @@
 @use '@/styles/mixins' as *;
 
 .swipeWrapper {
-  @include recurring-bill-items;  
+  @include recurring-bill-items;
+  flex-shrink: 0;
 }
 
 .swipeBackground {
@@ -38,6 +39,14 @@
   user-select: none;
   position: relative;
   z-index: 2;
+
+  &.compact {
+    padding: var(--spacing-s) var(--spacing-m);
+  }
+
+  &.detailed {
+    padding: var(--spacing-m);
+  }
 
   &:last-child {
     border-bottom: none;

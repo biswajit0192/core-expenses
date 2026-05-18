@@ -3,6 +3,10 @@
 .section {
   width: 100%;
   margin-top: var(--component-spacing);
+
+  @media (min-width: 1024px) {
+    margin-top: 0;
+  }
 }
 
 .widgetHeader {
@@ -26,6 +30,12 @@
   min-height: 80px;
   justify-content: center;
   gap: var(--spacing-xs);
+
+  @media (min-width: 1024px) {
+    max-height: calc(100vh - 480px);
+    overflow-y: auto;
+    @include hide-scrollbar;
+  }
 }
 
 .emptyState {
@@ -88,6 +98,7 @@
   padding: var(--spacing-m) var(--spacing-m) var(--spacing-m) var(--spacing-xl);
   position: relative;
   z-index: 2;
+  flex-shrink: 0;
   min-height: 80px;
   touch-action: pan-y; // Allows scrolling, but we handle X
   user-select: none;

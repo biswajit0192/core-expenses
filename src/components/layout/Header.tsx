@@ -61,7 +61,7 @@ export default function Header() {
   const profileImage = headerAvatar || getProfileImage(userData?.photoURL || currentUser?.photoURL);
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} mobElement`}>
       <div className={styles.container}>
         {isHome ? (
           <Link to="/">

@@ -2,6 +2,8 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from './Header';
 import BottomNav from './BottomNav';
+import DesktopSidebar from './DesktopSidebar';
+import DesktopHeader from './DesktopHeader';
 import NexusIcon from '@/assets/icons/nexus-icon.svg?react';
 import { useNexus } from '@/context/NexusContext';
 import { useAuth } from '@/context/AuthContext';
@@ -32,8 +34,10 @@ export default function MainLayout() {
           </motion.div>
         )}
       </AnimatePresence>
+      <DesktopSidebar />
       <Header />
       <main className={styles.main}>
+        <DesktopHeader />
         <Outlet />
       </main>
       <BottomNav />
@@ -41,7 +45,7 @@ export default function MainLayout() {
       {/* Global Nexus FAB */}
       {showNexus && (
         <motion.div 
-          className={styles.nexusFab}
+          className={`${styles.nexusFab} mobElement`}
           initial={{ opacity: 0, scale: 0.5, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.5, y: 20 }}

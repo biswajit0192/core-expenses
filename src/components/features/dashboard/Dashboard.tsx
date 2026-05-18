@@ -56,55 +56,55 @@ export default function Dashboard() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.atAGlance}>
-        <div className={styles.labelRow}>
-          <div className={styles.labelCol}>
-            <span className={styles.label}>SAFE TO SPEND</span>
-            {/* {snapshotDate && (
-              <span className={styles.snapshotLabel}>
-                Snapshot: {new Date(snapshotDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
-              </span>
-            )} */}
-          </div>
-          <div className={styles.labelRight}>
-            <span className={styles.daysBadge}>{daysLeft} Days Left</span>
-          </div>
-        </div>
-        
-        <div className={styles.balanceContainer}>
-          <motion.h1 
-            className={`${styles.balance} ${isOverspent ? styles.danger : ''}`} 
-            style={{ fontSize: getFontSize() }}
-          >
-            ₹<span id='mainbalanceleft'>{displayVal}</span><span className={styles.decimal}>.00</span>
-          </motion.h1>
-        </div>
-
-
-        <div className={styles.chipContainer}>
-          {loading ? (
-            <div className={styles.loadingChip}>Loading...</div>
-          ) : (spendingAccountsLabel && spentPercentage !== null) ? (
-            <div className={styles.chipWrapper}>
-              <SpendingBadge 
-                accountName={spendingAccountsLabel}
-                percentage={spentPercentage}
-              />
+      <div className={styles.dashboardGrid}>
+        <div className={styles.leftCol}>
+          <div className={styles.atAGlance}>
+            <div className={styles.labelRow}>
+              <div className={styles.labelCol}>
+                <span className={styles.label}>SAFE TO SPEND</span>
+              </div>
+              <div className={styles.labelRight}>
+                <span className={styles.daysBadge}>{daysLeft} Days Left</span>
+              </div>
             </div>
-          ) : (
-            <div className={styles.emptyChip}>No Active Budget</div>
-          )}
+            
+            <div className={styles.balanceContainer}>
+              <motion.h1 
+                className={`${styles.balance} ${isOverspent ? styles.danger : ''}`} 
+                style={{ fontSize: getFontSize() }}
+              >
+                ₹<span id='mainbalanceleft'>{displayVal}</span><span className={styles.decimal}>.00</span>
+              </motion.h1>
+            </div>
+
+            <div className={styles.chipContainer}>
+              {loading ? (
+                <div className={styles.loadingChip}>Loading...</div>
+              ) : (spendingAccountsLabel && spentPercentage !== null) ? (
+                <div className={styles.chipWrapper}>
+                  <SpendingBadge 
+                    accountName={spendingAccountsLabel}
+                    percentage={spentPercentage}
+                  />
+                </div>
+              ) : (
+                <div className={styles.emptyChip}>No Active Budget</div>
+              )}
+            </div>
+          </div>
+
+          <AccountSection variant="simple" />
+          
+          <div className={styles.subRow}>
+            <RecurringBills />
+            <ReminderSection />
+          </div>
         </div>
 
+        <div className={styles.rightCol}>
+          <TransactionSection />
+        </div>
       </div>
-
-      <AccountSection variant="simple" />
-      
-      <RecurringBills />
-      
-      <ReminderSection />
-
-      <TransactionSection />
     </div>
   );
 }

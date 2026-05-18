@@ -68,3 +68,15 @@
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.5; transform: scale(0.9); }
 }
+
+@media (min-width: 1024px) {
+  .layout {
+    margin-left: 252px; // 220 width + 16 left + 16 gap
+  }
+  
+  .main {
+    max-width: 100%; // Slightly wider for desktop view
+    padding-bottom: var(--spacing-xl);
+    overflow: hidden;
+  }
+}

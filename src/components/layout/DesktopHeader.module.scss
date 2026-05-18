@@ -1,0 +1,42 @@
+@use '@/styles/mixins' as *;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: var(--spacing-xl) var(--spacing-m);
+  // margin-bottom: var(--spacing-m);
+  width: 100%;
+}
+
+.titleSection {
+  .pageTitle {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--colors-base-font-color);
+    margin: 0;
+    letter-spacing: -0.02em;
+    text-transform: none; // Overriding global h1 text-transform if necessary
+  }
+}
+
+.timeSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.dateText {
+  font-size: var(--font-size-s);
+  font-weight: 600;
+  color: var(--colors-base-font-color);
+  text-transform: capitalize;
+}
+
+.timeText {
+  font-size: var(--font-size-m);
+  font-weight: 700;
+  color: var(--colors-gray-font-color);
+  letter-spacing: 0.05em;
+}

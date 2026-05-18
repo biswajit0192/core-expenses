@@ -3,6 +3,10 @@
 .section {
   width: 100%;
   margin-top: var(--component-spacing);
+
+  @media (min-width: 1024px) {
+    margin-top: 0;
+  }
 }
 
 .widgetHeader {
@@ -31,6 +35,12 @@
   @include mono-cards-designs;
   justify-content: center;
   gap: var(--spacing-xs);
+
+  @media (min-width: 1024px) {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    @include hide-scrollbar;
+  }
 }
 
 .emptyState {
