@@ -164,7 +164,7 @@ export const NexusProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             tx.socialId = meta.socialId;
             finalTransType = meta.transType as any;
             isDebitForBank = meta.isDebit;
-            logDescription = `${meta.type === 'LENT' ? 'Lent' : 'Borrowed'} ${tx.amount} to/from ${meta.personName}`;
+            logDescription = tx.socialTargetName || meta.personName;
           } else if (tx.socialId && socialDataMap[tx.socialId]) {
             const meta = await socialService.prepareSocialResolution(
               userId, 
@@ -177,7 +177,7 @@ export const NexusProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             flippedId = meta.flippedId || undefined;
             finalTransType = meta.transType as any;
             isDebitForBank = meta.isDebit;
-            logDescription = `${(tx as any).socialAction === 'ADD' ? 'Added to' : 'Settled'} debt with ${meta.personName}`;
+            logDescription = tx.socialTargetName || meta.personName;
           }
         }
 
