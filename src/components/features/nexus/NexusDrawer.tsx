@@ -218,6 +218,14 @@ export default function NexusDrawer() {
                     exit={{ opacity: 0, x: -100, height: 0 }}
                     transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
                     className={styles.stagedItem}
+                    drag={['TRANSACTION', 'CREDIT', 'DEBIT'].includes(item.type) ? "x" : false}
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragSnapToOrigin
+                    onDragEnd={(_, { offset }) => {
+                      if (Math.abs(offset.x) > 80) {
+                        removeItem(item.id);
+                      }
+                    }}
                   >
                     {['TRANSACTION', 'CREDIT', 'DEBIT'].includes(item.type) ? (
                       <div className={styles.transactionWrapper}>
