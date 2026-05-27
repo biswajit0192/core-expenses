@@ -39,7 +39,8 @@ export default function AccountStatusCard({ account, onActionClick }: AccountSta
       const totalSpent = Math.max(0, limit - current);
       displayAmount = totalSpent;
       percentage = Math.min(100, (totalSpent / limit) * 100);
-      displayPercentage = Math.round((totalSpent / limit) * 100);
+      const roundedPercentage = Math.round((totalSpent / limit) * 100);
+      displayPercentage = current > 0 ? Math.min(99, roundedPercentage) : roundedPercentage;
       label = 'Spent';
 
       // Spending Theme logic

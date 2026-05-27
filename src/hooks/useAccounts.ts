@@ -84,7 +84,11 @@ export function useAccounts() {
     if (totalSpendingBudget <= 0) return null;
     // Formula: (Budget - Balance) / Budget
     const spent = totalSpendingBudget - totalSpendingBalance;
-    return Math.max(0, Math.round((spent / totalSpendingBudget) * 100));
+    const percentage = (spent / totalSpendingBudget) * 100;
+    const rounded = Math.round(percentage);
+    // If balance is > 0, we shouldn't show 100% spent (maximum 99%)
+    const capped = totalSpendingBalance > 0 ? Math.min(99, rounded) : rounded;
+    return Math.max(0, capped);
   }, [totalSpendingBudget, totalSpendingBalance]);
 
   return { 
