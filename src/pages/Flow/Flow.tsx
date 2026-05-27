@@ -118,8 +118,8 @@ export default function Flow() {
     await firebaseFlowService.togglePaidMonth(currentUser.uid, id, type, monthKey, isPaid);
   };
 
-  const handleEdit = (type: string, id: string) => {
-    navigate(`/flow/manage/${type}/${id}`);
+  const handleCardClick = (type: string, id: string) => {
+    navigate(`/flow/details/${type}/${id}`);
   };
 
   const handleAdd = (type: string) => {
@@ -154,7 +154,7 @@ export default function Flow() {
             </h4>
             {activeEmiItems.length > 0 ? (
               activeEmiItems.map(item => (
-                <div key={item.id} onClick={() => handleEdit('tenure', item.id)}>
+                <div key={item.id} onClick={() => handleCardClick('tenure', item.id)}>
                   <TenureCard 
                     data={item} 
                     onMarkPaid={() => handleTogglePaid(item.id, 'TENURE', true)}
@@ -179,7 +179,7 @@ export default function Flow() {
             </h4>
             {activeLoanItems.length > 0 ? (
               activeLoanItems.map(item => (
-                <div key={item.id} onClick={() => handleEdit('tenure', item.id)}>
+                <div key={item.id} onClick={() => handleCardClick('tenure', item.id)}>
                   <TenureCard 
                     data={item} 
                     onMarkPaid={() => handleTogglePaid(item.id, 'TENURE', true)}
@@ -213,7 +213,7 @@ export default function Flow() {
                     className={styles.archivedList}
                   >
                     {archivedItems.map(item => (
-                      <div key={item.id} className={styles.archivedItem} onClick={() => handleEdit('tenure', item.id)}>
+                      <div key={item.id} className={styles.archivedItem} onClick={() => handleCardClick('tenure', item.id)}>
                         <TenureCard data={item} />
                       </div>
                     ))}
@@ -255,7 +255,7 @@ export default function Flow() {
             </h4>
             {activeLent.length > 0 ? (
               activeLent.map(item => (
-                <div key={item.id} onClick={() => handleEdit('social', item.id)}>
+                <div key={item.id} onClick={() => handleCardClick('social', item.id)}>
                   <SocialCard 
                     data={item} 
                     onSettle={() => handleSettleDebt(item.id)}
@@ -280,7 +280,7 @@ export default function Flow() {
             </h4>
             {activeBorrowed.length > 0 ? (
               activeBorrowed.map(item => (
-                <div key={item.id} onClick={() => handleEdit('social', item.id)}>
+                <div key={item.id} onClick={() => handleCardClick('social', item.id)}>
                   <SocialCard 
                     data={item} 
                     onSettle={() => handleSettleDebt(item.id)}
@@ -314,7 +314,7 @@ export default function Flow() {
                     className={styles.archivedList}
                   >
                     {archivedItems.map(item => (
-                      <div key={item.id} className={styles.archivedItem} onClick={() => handleEdit('social', item.id)}>
+                      <div key={item.id} className={styles.archivedItem} onClick={() => handleCardClick('social', item.id)}>
                         <SocialCard data={item} />
                       </div>
                     ))}
@@ -377,7 +377,7 @@ export default function Flow() {
                     {category.toLowerCase()} <span>-₹{Math.round(catTotal).toLocaleString('en-IN')} <span className={styles.unit}>/ mo</span></span>
                   </h4>
                   {subs.map(sub => (
-                    <div key={sub.id} onClick={() => handleEdit('monthly', sub.id)}>
+                    <div key={sub.id} onClick={() => handleCardClick('monthly', sub.id)}>
                       <MonthlyCard 
                         subscription={sub} 
                         onMarkPaid={() => handleTogglePaid(sub.id, 'MONTHLY', true)}
@@ -418,7 +418,7 @@ export default function Flow() {
                     className={styles.archivedList}
                   >
                     {archivedSubs.map(item => (
-                      <div key={item.id} className={styles.archivedItem} onClick={() => handleEdit('monthly', item.id)}>
+                      <div key={item.id} className={styles.archivedItem} onClick={() => handleCardClick('monthly', item.id)}>
                         <MonthlyCard subscription={item} />
                       </div>
                     ))}

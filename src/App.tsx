@@ -21,6 +21,7 @@ import ComingSoonPage from '@/components/features/ComingSoonPage';
 import { NexusProvider } from '@/context/NexusContext';
 import NexusDrawer from '@/components/features/nexus/NexusDrawer';
 import ManageFlow from '@/pages/Flow/ManageFlow';
+import FlowDetails from '@/pages/Flow/FlowDetails';
 
 function App() {
   const { currentUser, loading } = useAuth();
@@ -75,6 +76,7 @@ function App() {
             <Route path="/accounts/:id/edit" element={<AccountDetailView />} />
             <Route path="/flow/:tab?" element={<Flow />} />
             <Route path="/flow/manage/:type/:id" element={<ManageFlow />} />
+            <Route path="/flow/details/:type/:id" element={<FlowDetails />} />
 
             <Route path="/reminders" element={<RemindersPage />} />
             <Route path="/transactions" element={<TransactionsPage />} />

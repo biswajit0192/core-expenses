@@ -37,12 +37,18 @@ export default function Header() {
 
   // 2. Action Page Matchers
   const flowMatch = matchPath({ path: "/flow/manage/:type/:id" }, location.pathname);
+  const flowDetailsMatch = matchPath({ path: "/flow/details/:type/:id" }, location.pathname);
   const accountMatch = matchPath({ path: "/accounts/:id/edit" }, location.pathname);
 
   if (flowMatch) {
     const { type, id } = flowMatch.params;
     const isNew = id === 'new';
     pageTitle = `${isNew ? 'Add' : 'Edit'} ${type?.charAt(0).toUpperCase()}${type?.slice(1)}`;
+    showBackButton = true;
+    isSubPage = true;
+  } else if (flowDetailsMatch) {
+    const { type } = flowDetailsMatch.params;
+    pageTitle = `${type?.charAt(0).toUpperCase()}${type?.slice(1)} Details`;
     showBackButton = true;
     isSubPage = true;
   } else if (accountMatch) {
